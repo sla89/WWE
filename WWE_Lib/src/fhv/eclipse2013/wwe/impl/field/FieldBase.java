@@ -7,9 +7,9 @@ import java.util.Stack;
 import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.SimulationState;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.scope.IStateChangedEventListener;
-import fhv.eclipse2013.wwe.contract.scope.IStepEventListener;
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
+import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener;
 
 public abstract class FieldBase implements IField {
 
@@ -23,7 +23,7 @@ public abstract class FieldBase implements IField {
 
 	private Stack<FieldState> stack = new Stack<>();
 
-	public FieldBase(SimulationScope scope) {
+	public FieldBase(ISimulationScope scope) {
 		this.state = FieldState.none;
 		this.original = FieldState.none;
 		this.nextState = FieldState.none;
@@ -35,7 +35,7 @@ public abstract class FieldBase implements IField {
 			}
 		});
 
-		scope.addStepListener(new IStepEventListener() {
+		scope.addStepListener(new IStepChangedEventListener() {
 			@Override
 			public void handlePrepareNextState() {
 				FieldBase.this.prepareNextState();
@@ -120,6 +120,10 @@ public abstract class FieldBase implements IField {
 		if (!this.lock) {
 			this.setState(this.onClick(this.getState()));
 		}
+	}
+
+	public void reinitiateNeighbours() {
+		this.neighbours.init();
 	}
 
 	protected abstract FieldState onClick(FieldState state);

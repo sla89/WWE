@@ -1,5 +1,6 @@
 package fhv.eclipse2013.wwe.impl.field;
 
+import java.awt.Point;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -7,8 +8,7 @@ import java.util.HashMap;
 
 import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.impl.scope.Coordinate;
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class FieldNeighbours {
 	private class FieldChanged implements PropertyChangeListener {
@@ -23,8 +23,8 @@ public class FieldNeighbours {
 
 	protected PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
-	private SimulationScope scope;
-	private Coordinate coordinate;
+	private ISimulationScope scope;
+	private Point coordinate;
 
 	private HashMap<FieldState, Integer> states = new HashMap<FieldState, Integer>();
 
@@ -32,8 +32,8 @@ public class FieldNeighbours {
 
 	private IField field;
 
-	public FieldNeighbours(SimulationScope scope, IField field,
-			Coordinate coordinate) {
+	public FieldNeighbours(ISimulationScope scope, IField field,
+			Point coordinate) {
 		this.scope = scope;
 		this.coordinate = coordinate;
 		this.field = field;
@@ -53,8 +53,8 @@ public class FieldNeighbours {
 	}
 
 	private void initField(int dx, int dy, int i) {
-		int x = this.coordinate.getX() - dx;
-		int y = this.coordinate.getY() - dy;
+		int x = (int) (this.coordinate.getX() - dx);
+		int y = (int) (this.coordinate.getY() - dy);
 		IField f = this.scope.getField(x, y);
 		if (f != null) {
 			this.fields[i] = f;
@@ -63,7 +63,7 @@ public class FieldNeighbours {
 		}
 	}
 
-	private void init() {
+	public void init() {
 		this.fields = new IField[8];
 		int i = 0;
 		// Above left

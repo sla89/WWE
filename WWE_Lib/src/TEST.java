@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 
 import javax.swing.JButton;
@@ -10,8 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import fhv.eclipse2013.wwe.WireWorldFactory;
+import fhv.eclipse2013.wwe.contract.ISimulationFactory;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.control.ScopeControl;
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
 public class TEST {
 
@@ -21,25 +25,27 @@ public class TEST {
 	}
 
 	JFrame w;
-	SimulationScope scope;
+	ISimulationScope scope;
 	Timer timer = new Timer();
 	Boolean paused = false;
 
 	public TEST() {
-		// HAHA 2
+		ISimulationFactory factory = new WireWorldFactory();
+
 		this.w = new JFrame();
 		this.w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.w.setLayout(new BorderLayout());
 
 		this.scope = null;
-		/*
-		 * if (new File("d:\\text.xml").exists()) { this.scope =
-		 * SimulationScope.load("d:\\text.xml"); } else { this.scope = new
-		 * SimulationScope(100, 100); }
-		 */
+
 		int x = 100;
-		this.scope = new SimulationScope(x, x);
+		if (new File("d:\\text.xml").exists()) {
+			this.scope = factory.loadScope("d:\\text.xml");
+		} else {
+			this.scope = factory.createScope(x, x, "TEST");
+		}
+
 		JScrollPane pane = new JScrollPane(new ScopeControl(this.scope),
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -88,7 +94,12 @@ public class TEST {
 		saveBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TEST.this.scope.save("d:\\text.xml");
+				try {
+					TEST.this.scope.save("d:\\text.xml");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		bottomPanel.add(saveBtn);

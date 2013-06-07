@@ -2,6 +2,7 @@ package fhv.eclipse2013.wwe.control;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
@@ -11,21 +12,20 @@ import javax.swing.JPanel;
 
 import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.impl.scope.Coordinate;
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class FieldControl extends JPanel implements PropertyChangeListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private Coordinate coord;
+	private Point coord;
 	private IField field;
 	private Color bg;
-	private final SimulationScope scope;
+	private final ISimulationScope scope;
 
-	public FieldControl(int x, int y, SimulationScope scope) {
+	public FieldControl(int x, int y, ISimulationScope scope) {
 		this.scope = scope;
-		this.setCoord(new Coordinate(x, y));
+		this.setCoord(new Point(x, y));
 
 		this.addMouseListener(new MouseAdapter() {
 			@Override
@@ -39,23 +39,24 @@ public class FieldControl extends JPanel implements PropertyChangeListener {
 	}
 
 	private void initField() {
-		this.field = this.scope.getField(this.coord.getX(), this.coord.getY());
+		this.field = this.scope.getField((int) this.coord.getX(),
+				(int) this.coord.getY());
 		this.field.addPropertyChangeListener(this);
 		this.setColor(this.field.getState());
 	}
 
-	public void setCoord(Coordinate coord) {
+	public void setCoord(Point coord) {
 		this.coord = coord;
 		if (this.field != null) {
 			this.field.removePropertyChangeListener(this);
 			this.field = null;
 		}
-		if (this.scope.FieldExists(coord.getX(), coord.getY())) {
+		if (this.scope.fieldExists((int) coord.getX(), (int) coord.getY())) {
 			this.initField();
 		}
 	}
 
-	public Coordinate getCoord() {
+	public Point getCoord() {
 		return this.coord;
 	}
 

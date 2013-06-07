@@ -24,4 +24,6 @@ public interface IField {
 	void click();
 
 	Element getElement(Element e);
+
+	void reinitiateNeighbours();
 }

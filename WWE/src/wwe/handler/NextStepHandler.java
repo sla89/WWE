@@ -7,13 +7,13 @@ import org.eclipse.core.commands.IHandler;
 
 import wwe.util.SimulationScopeHandler;
 import fhv.eclipse2013.wwe.contract.SimulationState;
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class NextStepHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		SimulationScope scope = SimulationScopeHandler.getInstance()
+		ISimulationScope scope = SimulationScopeHandler.getInstance()
 				.getCurrentScope();
 		scope.nextStep();
 		return null;

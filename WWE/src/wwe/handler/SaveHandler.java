@@ -1,6 +1,5 @@
 package wwe.handler;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -12,26 +11,31 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import wwe.util.SimulationScopeHandler;
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class SaveHandler extends AbstractHandler implements IHandler {
 
 	Shell s;
-	
+
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		SimulationScope scope = SimulationScopeHandler.getInstance()
+		ISimulationScope scope = SimulationScopeHandler.getInstance()
 				.getCurrentScope();
-		s=new Shell();
-		FileDialog fileDialog = new FileDialog(s,SWT.SAVE);
+		s = new Shell();
+		FileDialog fileDialog = new FileDialog(s, SWT.SAVE);
 		fileDialog.setText("Save");
 		fileDialog.setFilterPath("C:/");
-	    String[] filterExt = { "*.xml",};
-	    fileDialog.setFilterExtensions(filterExt);
-		
+		String[] filterExt = { "*.xml", };
+		fileDialog.setFilterExtensions(filterExt);
+
 		String fileName = fileDialog.open();
 		if (fileName != null) {
-		  scope.save(fileName);
+			try {
+				scope.save(fileName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

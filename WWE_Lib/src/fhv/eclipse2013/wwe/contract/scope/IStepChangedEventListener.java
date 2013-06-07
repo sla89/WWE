@@ -1,6 +1,6 @@
 package fhv.eclipse2013.wwe.contract.scope;
 
-public interface IStepEventListener {
+public interface IStepChangedEventListener {
 	public enum Type {
 		prepare, next, back, reset;
 	}

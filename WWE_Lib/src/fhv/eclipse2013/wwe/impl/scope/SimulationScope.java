@@ -1,10 +1,11 @@
 package fhv.eclipse2013.wwe.impl.scope;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -16,27 +17,29 @@ import org.jdom2.output.XMLOutputter;
 
 import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.contract.SimulationState;
-import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
-import fhv.eclipse2013.wwe.contract.scope.IStepEventListener.Type;
-import fhv.eclipse2013.wwe.impl.field.Field;
+import fhv.eclipse2013.wwe.contract.ISimulationFactory;
+import fhv.eclipse2013.wwe.impl.field.WireWorldField;
 
-public class SimulationScope extends SimulationScopeBase implements
-		ISimulationScope {
+public class SimulationScope extends AbstractScope {
 
-	public static SimulationScope load(String filename) {
+	public static SimulationScope load(String filename,
+			ISimulationFactory factory) {
+
 		SAXBuilder builder = new SAXBuilder();
 		File xmlFile = new File(filename);
 
 		try {
 			Document document = builder.build(xmlFile);
 			Element rootNode = document.getRootElement();
+			String name = rootNode.getAttributeValue("name");
 			int width = Integer.parseInt(rootNode.getChild("width").getValue());
 			int height = Integer.parseInt(rootNode.getChild("height")
 					.getValue());
 
 			IField[][] fields = new IField[width][];
-			SimulationScope scope = new SimulationScope(width, height, false);
+			List<IField> field_list = new ArrayList<>();
+			SimulationScope scope = new SimulationScope(width, height, name,
+					factory, false);
 			rootNode.getChild("fields");
 			for (Element row : rootNode.getChild("fields").getChildren("row")) {
 				fields[Integer.parseInt(row.getAttributeValue("x"))] = new IField[height];
@@ -45,11 +48,12 @@ public class SimulationScope extends SimulationScopeBase implements
 					int y = Integer.parseInt(field.getAttributeValue("y"));
 					FieldState state = FieldState.valueOf(field
 							.getAttributeValue("state"));
-					fields[x][y] = new Field(scope, state, new Coordinate(x, y));
+					fields[x][y] = new WireWorldField(scope, state, new Point(
+							x, y));
+					field_list.add(fields[x][y]);
 				}
 			}
-			scope.setFields(fields);
-			scope.setSimulationState(SimulationState.init);
+			scope.setFields(fields, field_list);
 
 			return scope;
 		} catch (IOException io) {
@@ -57,116 +61,35 @@ public class SimulationScope extends SimulationScopeBase implements
 		} catch (JDOMException jdomex) {
 			System.out.println(jdomex.getMessage());
 		}
-		return new SimulationScope(1, 1);
+
+		return new SimulationScope(1, 1, "NEW", factory);
 	}
 
-	private class Task extends TimerTask {
-		@Override
-		public void run() {
-			SimulationScope.this.onNextStep();
-		}
+	public SimulationScope(int w, int h, String name, ISimulationFactory factory) {
+		super(w, h, name, true, factory);
 	}
 
-	Timer t;
-
-	private void startTimer() {
-		if (this.t == null) {
-			this.t = new Timer();
-			this.t.schedule(new Task(), 0, 100);
-		} else {
-			this.setSimulationState(SimulationState.paused);
-			this.stopTimer();
-		}
-	}
-
-	private void stopTimer() {
-		if (this.t != null) {
-			this.t.cancel();
-			this.t = null;
-		}
-	}
-
-	private String name = "TEST";
-
-	public SimulationScope(int w, int h) {
-		super(w, h, true);
-	}
-
-	private SimulationScope(int w, int h, boolean init) {
-		super(w, h, init);
-	}
-
-	public void setName(String name) {
-		String old = this.name;
-		this.name = name;
-		this.onPropertyChanged("name", old, this.name);
-	}
-
-	public String getName() {
-		return this.name;
+	private SimulationScope(int w, int h, String name,
+			ISimulationFactory factory, boolean init) {
+		super(w, h, name, init, factory);
 	}
 
 	@Override
-	protected IField initField(int x, int y) {
-		return new Field(this, new Coordinate(x, y));
-	}
+	public void save(String filename) throws IOException {
+		Element scope = new Element("scope");
+		Document doc = new Document(scope);
 
-	public void nextStep() {
-		if (this.getSimulationState().equals(SimulationState.paused)) {
-			this.onNextStep();
-		}
-	}
+		scope.setAttribute(new Attribute("name", this.getName()));
+		scope.addContent(new Element("width").setText(this.getWidth() + ""));
+		scope.addContent(new Element("height").setText(this.getHeight() + ""));
 
-	private void onNextStep() {
-		this.onStepChanged(Type.prepare);
-		this.onStepChanged(Type.next);
-	}
-
-	@Override
-	public void backStep() {
-		if (this.getSimulationState().equals(SimulationState.paused)) {
-			this.onStepChanged(Type.back);
-		}
-	}
-
-	@Override
-	public void click(int x, int y) {
-		this.getField(x, y).click();
-	}
-
-	@Override
-	public void start() {
-		if (!this.getSimulationState().equals(SimulationState.started)) {
-			this.setSimulationState(SimulationState.started);
-		}
-		this.startTimer();
-	}
-
-	@Override
-	public void stop() {
-		if (!this.getSimulationState().equals(SimulationState.stopped)) {
-			this.stopTimer();
-			this.setSimulationState(SimulationState.stopped);
-			this.onStepChanged(Type.reset);
-		}
-	}
-
-	public void save(String filename) {
-		try {
-			Element scope = new Element("scope");
-			Document doc = new Document(scope);
-
-			scope.setAttribute(new Attribute("name", this.getName()));
-			scope.addContent(new Element("width").setText(this.getWidth() + ""));
-			scope.addContent(new Element("height").setText(this.getHeight()
-					+ ""));
-
-			Element fields = new Element("fields");
-			for (int x = 0; x < this.getWidth(); x++) {
+		Element fields = new Element("fields");
+		for (int x = 0; x < this.getWidth(); x++) {
+			if (this.rowExists(x)) {
 				Element row = new Element("row");
 				row.setAttribute(new Attribute("x", x + ""));
 				for (int y = 0; y < this.getHeight(); y++) {
-					if (this.FieldExists(x, y)) {
+					if (this.fieldExists(x, y)) {
 						Element e = new Element("field");
 						e.setAttribute(new Attribute("y", y + ""));
 						e.setAttribute(new Attribute("x", x + ""));
@@ -176,14 +99,11 @@ public class SimulationScope extends SimulationScopeBase implements
 				}
 				fields.addContent(row);
 			}
-			scope.addContent(fields);
-
-			XMLOutputter xmlOutput = new XMLOutputter();
-			xmlOutput.setFormat(Format.getPrettyFormat());
-			xmlOutput.output(doc, new FileWriter(filename));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		scope.addContent(fields);
+
+		XMLOutputter xmlOutput = new XMLOutputter();
+		xmlOutput.setFormat(Format.getPrettyFormat());
+		xmlOutput.output(doc, new FileWriter(filename));
 	}
 }

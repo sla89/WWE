@@ -1,16 +1,20 @@
 package wwe.util;
 
+import fhv.eclipse2013.wwe.WireWorldFactory;
+import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.SimulationState;
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class SimulationScopeHandler {
 	private static final int WORLD_SIZE = 100;
 	private static SimulationScopeHandler INSTANCE;
 
-	private SimulationScope currentScope;
+	private ISimulationScope currentScope;
+
+	private ISimulationFactory factory = new WireWorldFactory();
 
 	private SimulationScopeHandler() {
-		currentScope = new SimulationScope(WORLD_SIZE, WORLD_SIZE);
+		currentScope = factory.createScope(WORLD_SIZE, WORLD_SIZE, "CREATED");
 	}
 
 	public static SimulationScopeHandler getInstance() {
@@ -24,11 +28,15 @@ public class SimulationScopeHandler {
 		return currentScope.getSimulationState();
 	}
 
-	public SimulationScope getCurrentScope() {
+	public ISimulationScope getCurrentScope() {
 		return currentScope;
 	}
-	
-	public void setCurrentScope(SimulationScope scope) {
-		this.currentScope=scope;
+
+	public void setCurrentScope(ISimulationScope scope) {
+		this.currentScope = scope;
+	}
+
+	public ISimulationScope loadScope(String filename) {
+		return factory.loadScope(filename);
 	}
 }

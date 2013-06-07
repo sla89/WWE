@@ -5,18 +5,16 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class ScopeControl extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unused")
-	private SimulationScope scope;
-
+	private ISimulationScope scope;
 	private JPanel fieldPanel;
 
-	public ScopeControl(SimulationScope scope) {
+	public ScopeControl(ISimulationScope scope) {
 		this.scope = scope;
 		this.setLayout(new BorderLayout());
 
