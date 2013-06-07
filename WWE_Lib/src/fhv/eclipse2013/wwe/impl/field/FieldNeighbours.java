@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.contract.SimulationState;
 import fhv.eclipse2013.wwe.impl.scope.Coordinate;
 import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
@@ -29,18 +28,25 @@ public class FieldNeighbours {
 
 	private HashMap<FieldState, Integer> states = new HashMap<FieldState, Integer>();
 
-	private IField[] fields = new IField[8];
+	private IField[] fields;
 
-	public FieldNeighbours(SimulationScope scope, Coordinate coordinate) {
+	private IField field;
+
+	public FieldNeighbours(SimulationScope scope, IField field,
+			Coordinate coordinate) {
 		this.scope = scope;
 		this.coordinate = coordinate;
+		this.field = field;
 
-		scope.addPropertyChangeListener(new PropertyChangeListener() {
+		this.field.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getPropertyName().equals("simulationState")
-						&& evt.getNewValue().equals(SimulationState.init)) {
-					FieldNeighbours.this.init();
+			public void propertyChange(PropertyChangeEvent arg0) {
+				if (arg0.getPropertyName().equals("state")) {
+					FieldState state = (FieldState) arg0.getNewValue();
+					if (!state.equals(FieldState.none)
+							&& (FieldNeighbours.this.fields == null)) {
+						FieldNeighbours.this.init();
+					}
 				}
 			}
 		});
@@ -58,6 +64,7 @@ public class FieldNeighbours {
 	}
 
 	private void init() {
+		this.fields = new IField[8];
 		int i = 0;
 		// Above left
 		this.initField(-1, -1, i++);

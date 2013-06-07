@@ -23,8 +23,7 @@ public abstract class FieldBase implements IField {
 
 	private Stack<FieldState> stack = new Stack<>();
 
-	public FieldBase(SimulationScope scope, FieldNeighbours n) {
-		this.neighbours = n;
+	public FieldBase(SimulationScope scope) {
 		this.state = FieldState.none;
 		this.original = FieldState.none;
 		this.nextState = FieldState.none;
@@ -65,6 +64,10 @@ public abstract class FieldBase implements IField {
 	@Override
 	public FieldNeighbours getNeighbours() {
 		return this.neighbours;
+	}
+
+	protected void setNeighbours(FieldNeighbours neighbours) {
+		this.neighbours = neighbours;
 	}
 
 	@Override

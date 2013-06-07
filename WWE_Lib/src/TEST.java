@@ -2,7 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Timer;
 
 import javax.swing.JButton;
@@ -34,11 +33,13 @@ public class TEST {
 		this.w.setLayout(new BorderLayout());
 
 		this.scope = null;
-		if (new File("d:\\text.xml").exists()) {
-			this.scope = SimulationScope.load("d:\\text.xml");
-		} else {
-			this.scope = new SimulationScope(100, 100);
-		}
+		/*
+		 * if (new File("d:\\text.xml").exists()) { this.scope =
+		 * SimulationScope.load("d:\\text.xml"); } else { this.scope = new
+		 * SimulationScope(100, 100); }
+		 */
+		int x = 100;
+		this.scope = new SimulationScope(x, x);
 		JScrollPane pane = new JScrollPane(new ScopeControl(this.scope),
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
