@@ -17,7 +17,7 @@ public class FieldControl extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
-	private IField field;
+	private final IField field;
 	private Color bg;
 
 	public FieldControl(IField field) {

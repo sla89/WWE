@@ -1,5 +1,7 @@
 package wwe;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
@@ -20,11 +22,11 @@ public class WireworldView extends ViewPart {
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		ScopeControl control = new ScopeControl(SimulationScopeHandler
+		Composite swtAwtComponent = new Composite(parent, SWT.EMBEDDED);
+		java.awt.Frame frame = SWT_AWT.new_Frame(swtAwtComponent);
+		javax.swing.JPanel panel = new ScopeControl(SimulationScopeHandler
 				.getInstance().getCurrentScope());
-
-		// Frame f = SWT_AWT.new_Frame(parent);
-		// f.add(control);
+		frame.add(panel);
 	}
 
 	/**
