@@ -1,5 +1,6 @@
 package fhv.eclipse2013.wwe.control;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -13,16 +14,22 @@ public class ScopeControl extends JPanel {
 	@SuppressWarnings("unused")
 	private SimulationScope scope;
 
+	private JPanel fieldPanel;
+
 	public ScopeControl(SimulationScope scope) {
 		this.scope = scope;
+		this.setLayout(new BorderLayout());
 
-		this.setLayout(new GridLayout(scope.getSize().getWidth(), scope
-				.getSize().getHeight()));
+		this.fieldPanel = new JPanel();
+		this.fieldPanel.setLayout(new GridLayout(scope.getWidth(), scope
+				.getHeight()));
 
-		for (int y = 0; y < scope.getSize().getHeight(); y++) {
-			for (int x = 0; x < scope.getSize().getWidth(); x++) {
-				this.add(new FieldControl(scope.getField(x, y)));
+		for (int x = 0; x < scope.getWidth(); x++) {
+			for (int y = 0; y < scope.getWidth(); y++) {
+				this.fieldPanel.add(new FieldControl(x, y, this.scope));
 			}
 		}
+
+		this.add(this.fieldPanel, BorderLayout.CENTER);
 	}
 }

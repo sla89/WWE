@@ -5,17 +5,20 @@ import org.jdom2.Element;
 
 import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
+import fhv.eclipse2013.wwe.impl.scope.Coordinate;
 import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
 public class Field extends FieldBase implements IField {
 
-	public Field(SimulationScope scope, FieldNeighbours n) {
-		super(scope, n);
+	public Field(SimulationScope scope, Coordinate c) {
+		super(scope);
+		this.setNeighbours(new FieldNeighbours(scope, this, c));
 	}
 
-	public Field(SimulationScope scope, FieldNeighbours n, FieldState state) {
-		super(scope, n);
+	public Field(SimulationScope scope, FieldState state, Coordinate c) {
+		super(scope);
 		this.setState(state);
+		this.setNeighbours(new FieldNeighbours(scope, this, c));
 	}
 
 	@Override

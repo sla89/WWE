@@ -20,7 +20,6 @@ import fhv.eclipse2013.wwe.contract.SimulationState;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.scope.IStepEventListener.Type;
 import fhv.eclipse2013.wwe.impl.field.Field;
-import fhv.eclipse2013.wwe.impl.field.FieldNeighbours;
 
 public class SimulationScope extends SimulationScopeBase implements
 		ISimulationScope {
@@ -46,9 +45,7 @@ public class SimulationScope extends SimulationScopeBase implements
 					int y = Integer.parseInt(field.getAttributeValue("y"));
 					FieldState state = FieldState.valueOf(field
 							.getAttributeValue("state"));
-					Coordinate coordinate = new Coordinate(x, y);
-					FieldNeighbours n = new FieldNeighbours(scope, coordinate);
-					fields[x][y] = new Field(scope, n, state);
+					fields[x][y] = new Field(scope, state, new Coordinate(x, y));
 				}
 			}
 			scope.setFields(fields);
@@ -111,9 +108,7 @@ public class SimulationScope extends SimulationScopeBase implements
 
 	@Override
 	protected IField initField(int x, int y) {
-		Coordinate coordinate = new Coordinate(x, y);
-		FieldNeighbours n = new FieldNeighbours(this, coordinate);
-		return new Field(this, n);
+		return new Field(this, new Coordinate(x, y));
 	}
 
 	public void nextStep() {
@@ -171,11 +166,13 @@ public class SimulationScope extends SimulationScopeBase implements
 				Element row = new Element("row");
 				row.setAttribute(new Attribute("x", x + ""));
 				for (int y = 0; y < this.getHeight(); y++) {
-					Element e = new Element("field");
-					e.setAttribute(new Attribute("y", y + ""));
-					e.setAttribute(new Attribute("x", x + ""));
-					IField f = this.getField(x, y);
-					row.addContent(f.getElement(e));
+					if (this.FieldExists(x, y)) {
+						Element e = new Element("field");
+						e.setAttribute(new Attribute("y", y + ""));
+						e.setAttribute(new Attribute("x", x + ""));
+						IField f = this.getField(x, y);
+						row.addContent(f.getElement(e));
+					}
 				}
 				fields.addContent(row);
 			}

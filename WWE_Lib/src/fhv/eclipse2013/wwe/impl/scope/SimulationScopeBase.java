@@ -20,6 +20,7 @@ public abstract class SimulationScopeBase implements ISimulationScope {
 
 	public SimulationScopeBase(int w, int h, boolean init) {
 		this.setSize(new ScopeSize(w, h));
+
 		if (init) {
 			this.init();
 		}
@@ -29,11 +30,7 @@ public abstract class SimulationScopeBase implements ISimulationScope {
 		this.fields = new IField[this.getWidth()][];
 		for (int x = 0; x < this.getWidth(); x++) {
 			this.fields[x] = new IField[this.getHeight()];
-			for (int y = 0; y < this.getHeight(); y++) {
-				this.fields[x][y] = this.initField(x, y);
-			}
 		}
-		this.setSimulationState(SimulationState.init);
 	}
 
 	protected abstract IField initField(int x, int y);
@@ -46,10 +43,23 @@ public abstract class SimulationScopeBase implements ISimulationScope {
 	public IField getField(int x, int y) {
 		if ((x >= 0) && (x < this.getWidth()) && (y >= 0)
 				&& (y < this.getHeight())) {
+			if (this.fields[x][y] == null) {
+				this.fields[x][y] = this.initField(x, y);
+			}
 			return this.fields[x][y];
 		} else {
 			return null;
 		}
+	}
+
+	public boolean FieldExists(int x, int y) {
+		if ((x >= 0) && (x < this.getWidth()) && (y >= 0)
+				&& (y < this.getHeight())) {
+			if (this.fields[x][y] != null) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void setSize(ScopeSize size) {
