@@ -9,7 +9,6 @@ import org.eclipse.ui.application.IActionBarConfigurer;
  * new actions.
  */
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
-
 	// Actions - important to allocate these only in makeActions, and then use
 	// them
 	// in the fill methods. This ensures that the actions aren't recreated
@@ -18,5 +17,4 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
 	}
-
 }
