@@ -27,7 +27,7 @@ public class TEST {
 	Boolean paused = false;
 
 	public TEST() {
-		// HAHA
+		// HAHA 2
 		this.w = new JFrame();
 		this.w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
