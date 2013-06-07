@@ -7,12 +7,16 @@ import org.eclipse.core.commands.IHandler;
 
 import wwe.util.SimulationScopeHandler;
 import fhv.eclipse2013.wwe.contract.SimulationState;
+import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
 public class PauseHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		System.out.println("pause");
+		SimulationScope scope = SimulationScopeHandler.getInstance()
+				.getCurrentScope();
+		// will make the scope pause
+		scope.start();
 		return null;
 	}
 

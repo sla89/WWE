@@ -13,7 +13,6 @@ public class WireworldView extends ViewPart {
 	public static final String ID = "WWE.wireworldView";
 
 	public WireworldView() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

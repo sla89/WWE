@@ -7,12 +7,15 @@ import org.eclipse.core.commands.IHandler;
 
 import wwe.util.SimulationScopeHandler;
 import fhv.eclipse2013.wwe.contract.SimulationState;
+import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
 public class RevertHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		System.out.println("revert");
+		SimulationScope scope = SimulationScopeHandler.getInstance()
+				.getCurrentScope();
+		scope.stop();
 		return null;
 	}
 
