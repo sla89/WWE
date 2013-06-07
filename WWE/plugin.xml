@@ -55,7 +55,7 @@
          <menu
                label="File">
             <command
-                  commandId="WWE.New"
+                  commandId="WWE.NewCmd"
                   label="New"
                   style="push">
             </command>
@@ -64,12 +64,12 @@
                   visible="true">
             </separator>
             <command
-                  commandId="WWE.Load"
+                  commandId="WWE.LoadCmd"
                   label="Load"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.save"
+                  commandId="WWE.SaveCmd"
                   label="Save"
                   style="push">
             </command>
@@ -148,6 +148,10 @@
             class="wwe.handler.RevertHandler"
             commandId="WWE.RevertHandler">
       </handler>
+      <handler
+            class="wwe.handler.NewHandler"
+            commandId="WWE.NewHandler">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -175,6 +179,21 @@
             defaultHandler="wwe.handler.NextStepHandler"
             id="WWE.NextStepCmd"
             name="Next Step Command">
+      </command>
+      <command
+            defaultHandler="wwe.handler.SaveHandler"
+            id="WWE.SaveCmd"
+            name="Save Command">
+      </command>
+      <command
+            defaultHandler="wwe.handler.LoadHandler"
+            id="WWE.LoadCmd"
+            name="Load Command">
+      </command>
+      <command
+            defaultHandler="wwe.handler.NewHandler"
+            id="WWE.NewCmd"
+            name="New Command">
       </command>
    </extension>
 
