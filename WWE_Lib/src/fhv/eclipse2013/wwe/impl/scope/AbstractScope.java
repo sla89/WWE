@@ -7,8 +7,8 @@ import java.util.TimerTask;
 
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
-import fhv.eclipse2013.wwe.contract.SimulationState;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener.Type;
+import fhv.eclipse2013.wwe.contract.state.SimulationState;
 
 public abstract class AbstractScope extends AbstractScopeEvents {
 	private class Task extends TimerTask {
@@ -118,6 +118,7 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 			}
 			if (this.fields[x][y] == null) {
 				this.fields[x][y] = factory.createField(this, new Point(x, y));
+				this.fields[x][y].setLock(this.getLock());
 			}
 			return this.fields[x][y];
 		} else {

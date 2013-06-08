@@ -3,11 +3,11 @@ package fhv.eclipse2013.wwe.impl.scope;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import fhv.eclipse2013.wwe.contract.SimulationState;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.scope.IStateChangedEventListener;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener.Type;
+import fhv.eclipse2013.wwe.contract.state.SimulationState;
 import fhv.eclipse2013.wwe.impl.scope.event.StateChangedSupport;
 import fhv.eclipse2013.wwe.impl.scope.event.StepChangedSupport;
 
@@ -16,6 +16,11 @@ public abstract class AbstractScopeEvents implements ISimulationScope {
 			this);
 	private StateChangedSupport stateChanged = new StateChangedSupport();
 	private StepChangedSupport stepChanged = new StepChangedSupport();
+	private boolean lock;
+
+	protected boolean getLock() {
+		return lock;
+	}
 
 	protected void onPropertyChanged(String propertyName, Object oldValue,
 			Object newValue) {
@@ -25,7 +30,7 @@ public abstract class AbstractScopeEvents implements ISimulationScope {
 
 	protected void onStateChanged() {
 		SimulationState state = getSimulationState();
-		boolean lock = (state.equals(SimulationState.started) || state
+		this.lock = (state.equals(SimulationState.started) || state
 				.equals(SimulationState.paused));
 		stateChanged.fireStateChanged(state, lock);
 	}

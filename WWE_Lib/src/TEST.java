@@ -15,6 +15,7 @@ import javax.swing.ScrollPaneConstants;
 import fhv.eclipse2013.wwe.WireWorldFactory;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
+import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 import fhv.eclipse2013.wwe.control.ScopeControl;
 
 public class TEST {
@@ -45,6 +46,7 @@ public class TEST {
 		} else {
 			this.scope = factory.createScope(x, x, "TEST");
 		}
+		IToolElement[] elements = factory.readToolboxFolder("d:\\Test\\toolbox\\");
 
 		JScrollPane pane = new JScrollPane(new ScopeControl(this.scope),
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,

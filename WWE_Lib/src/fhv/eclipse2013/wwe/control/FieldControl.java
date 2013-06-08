@@ -10,9 +10,9 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JPanel;
 
-import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
+import fhv.eclipse2013.wwe.contract.state.FieldState;
 
 public class FieldControl extends JPanel implements PropertyChangeListener {
 

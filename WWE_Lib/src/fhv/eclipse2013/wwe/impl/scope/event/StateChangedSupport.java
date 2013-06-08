@@ -3,8 +3,8 @@ package fhv.eclipse2013.wwe.impl.scope.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import fhv.eclipse2013.wwe.contract.SimulationState;
 import fhv.eclipse2013.wwe.contract.scope.IStateChangedEventListener;
+import fhv.eclipse2013.wwe.contract.state.SimulationState;
 
 public class StateChangedSupport {
 

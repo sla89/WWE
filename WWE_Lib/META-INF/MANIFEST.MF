@@ -16,6 +16,7 @@ Bundle-Activator: wwe_lib.Activator
 Export-Package: fhv.eclipse2013.wwe,
  fhv.eclipse2013.wwe.contract,
  fhv.eclipse2013.wwe.contract.scope,
+ fhv.eclipse2013.wwe.contract.state,
  fhv.eclipse2013.wwe.control,
  wwe_lib
 Require-Bundle: org.eclipse.ui,

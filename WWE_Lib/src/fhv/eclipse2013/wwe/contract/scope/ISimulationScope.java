@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.contract.SimulationState;
+import fhv.eclipse2013.wwe.contract.state.SimulationState;
 
 public interface ISimulationScope {
 

@@ -5,8 +5,8 @@ import java.awt.Point;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 
-import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
+import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
 public class WireWorldField extends FieldBase {

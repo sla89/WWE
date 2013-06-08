@@ -6,9 +6,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 
-import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
+import fhv.eclipse2013.wwe.contract.state.FieldState;
 
 public class FieldNeighbours {
 	private class FieldChanged implements PropertyChangeListener {

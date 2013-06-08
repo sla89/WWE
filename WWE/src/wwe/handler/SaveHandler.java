@@ -19,8 +19,10 @@ public class SaveHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		ISimulationScope scope = SimulationScopeHandler.getInstance()
-				.getCurrentScope();
+		int index = SimulationScopeHandler.INSTANCE.getCurrentIndex();
+		
+		ISimulationScope scope = SimulationScopeHandler.INSTANCE
+				.getScope(index);
 		s = new Shell();
 		FileDialog fileDialog = new FileDialog(s, SWT.SAVE);
 		fileDialog.setText("Save");

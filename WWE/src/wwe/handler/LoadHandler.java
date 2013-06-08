@@ -9,7 +9,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import wwe.util.SimulationScopeHandler;
-import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class LoadHandler extends AbstractHandler implements IHandler {
 
@@ -17,8 +16,8 @@ public class LoadHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		ISimulationScope scope = SimulationScopeHandler.getInstance()
-				.getCurrentScope();
+		int index = SimulationScopeHandler.INSTANCE.getCurrentIndex();
+
 		s = new Shell();
 		FileDialog fileDialog = new FileDialog(s, SWT.OPEN);
 		fileDialog.setText("Load");
@@ -28,10 +27,8 @@ public class LoadHandler extends AbstractHandler implements IHandler {
 
 		String fileName = fileDialog.open();
 		if (fileName != null) {
-			ISimulationScope sTemp = SimulationScopeHandler.getInstance().loadScope(fileName);
-			SimulationScopeHandler.getInstance().setCurrentScope(sTemp);
+			SimulationScopeHandler.INSTANCE.loadScope(fileName, index);
 		}
 		return null;
 	}
-
 }

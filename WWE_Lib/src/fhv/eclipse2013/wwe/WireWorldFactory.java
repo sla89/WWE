@@ -1,12 +1,18 @@
 package fhv.eclipse2013.wwe;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
 
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
+import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 import fhv.eclipse2013.wwe.impl.field.WireWorldField;
 import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
+import fhv.eclipse2013.wwe.impl.toolbox.ToolElement;
 
 public class WireWorldFactory implements ISimulationFactory {
 
@@ -29,4 +35,28 @@ public class WireWorldFactory implements ISimulationFactory {
 		return new WireWorldField(scope, coord);
 	}
 
+	@Override
+	public IToolElement[] readToolboxFolder(String foldername) {
+		List<IToolElement> elements = new ArrayList<>();
+		File folder = new File(foldername);
+		if (folder.isDirectory()) {
+			String[] files = folder.list(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					return name.contains(".xml");
+				}
+			});
+			for (String file : files) {
+				IToolElement element = ToolElement.loadFile(
+						folder.getAbsolutePath(), file);
+				if (element != null)
+					elements.add(element);
+			}
+		}
+		if (elements.size() != 0) {
+			return (IToolElement[]) elements.toArray(new IToolElement[0]);
+		} else {
+			return new IToolElement[0];
+		}
+	}
 }

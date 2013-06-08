@@ -4,12 +4,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Stack;
 
-import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.contract.SimulationState;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.scope.IStateChangedEventListener;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener;
+import fhv.eclipse2013.wwe.contract.state.FieldState;
+import fhv.eclipse2013.wwe.contract.state.SimulationState;
 
 public abstract class FieldBase implements IField {
 
@@ -84,6 +84,11 @@ public abstract class FieldBase implements IField {
 		if (!this.lock) {
 			this.original = state;
 		}
+	}
+
+	@Override
+	public void setLock(boolean lock) {
+		changes.firePropertyChange("lock", this.lock, this.lock = lock);
 	}
 
 	protected FieldState getNextState() {

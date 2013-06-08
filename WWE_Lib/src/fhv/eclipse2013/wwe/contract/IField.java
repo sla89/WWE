@@ -4,12 +4,15 @@ import java.beans.PropertyChangeListener;
 
 import org.jdom2.Element;
 
+import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.impl.field.FieldNeighbours;
 
 public interface IField {
 	FieldState getState();
 
 	void setState(FieldState state);
+
+	void setLock(boolean lock);
 
 	FieldNeighbours getNeighbours();
 

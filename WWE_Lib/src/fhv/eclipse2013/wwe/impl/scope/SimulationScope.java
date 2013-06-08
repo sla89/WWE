@@ -15,9 +15,9 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-import fhv.eclipse2013.wwe.contract.FieldState;
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
+import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.impl.field.WireWorldField;
 
 public class SimulationScope extends AbstractScope {
@@ -41,17 +41,17 @@ public class SimulationScope extends AbstractScope {
 			SimulationScope scope = new SimulationScope(width, height, name,
 					factory, false);
 			rootNode.getChild("fields");
-			for (Element row : rootNode.getChild("fields").getChildren("row")) {
-				fields[Integer.parseInt(row.getAttributeValue("x"))] = new IField[height];
-				for (Element field : row.getChildren("field")) {
-					int x = Integer.parseInt(field.getAttributeValue("x"));
-					int y = Integer.parseInt(field.getAttributeValue("y"));
-					FieldState state = FieldState.valueOf(field
-							.getAttributeValue("state"));
-					fields[x][y] = new WireWorldField(scope, state, new Point(
-							x, y));
-					field_list.add(fields[x][y]);
+			for (Element field : rootNode.getChild("fields").getChildren(
+					"field")) {
+				int x = Integer.parseInt(field.getAttributeValue("x"));
+				int y = Integer.parseInt(field.getAttributeValue("y"));
+				FieldState state = FieldState.valueOf(field
+						.getAttributeValue("state"));
+				if (fields[x] == null) {
+					fields[x] = new IField[height];
 				}
+				fields[x][y] = new WireWorldField(scope, state, new Point(x, y));
+				field_list.add(fields[x][y]);
 			}
 			scope.setFields(fields, field_list);
 
@@ -85,19 +85,16 @@ public class SimulationScope extends AbstractScope {
 
 		Element fields = new Element("fields");
 		for (int x = 0; x < this.getWidth(); x++) {
-			if (this.rowExists(x)) {
-				Element row = new Element("row");
-				row.setAttribute(new Attribute("x", x + ""));
-				for (int y = 0; y < this.getHeight(); y++) {
-					if (this.fieldExists(x, y)) {
+			for (int y = 0; y < this.getHeight(); y++) {
+				if (this.fieldExists(x, y)) {
+					IField f = this.getField(x, y);
+					if (!f.getState().equals(FieldState.none)) {
 						Element e = new Element("field");
 						e.setAttribute(new Attribute("y", y + ""));
 						e.setAttribute(new Attribute("x", x + ""));
-						IField f = this.getField(x, y);
-						row.addContent(f.getElement(e));
+						fields.addContent(f.getElement(e));
 					}
 				}
-				fields.addContent(row);
 			}
 		}
 		scope.addContent(fields);
