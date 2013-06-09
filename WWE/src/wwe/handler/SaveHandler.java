@@ -10,20 +10,14 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import wwe.util.SimulationScopeHandler;
-import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
+import wwe.scope.ScopeEditor;
+import wwe.util.EditorHandler;
 
 public class SaveHandler extends AbstractHandler implements IHandler {
 
-	Shell s;
-
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		int index = SimulationScopeHandler.INSTANCE.getCurrentIndex();
-		
-		ISimulationScope scope = SimulationScopeHandler.INSTANCE
-				.getScope(index);
-		s = new Shell();
+		Shell s = new Shell();
 		FileDialog fileDialog = new FileDialog(s, SWT.SAVE);
 		fileDialog.setText("Save");
 		fileDialog.setFilterPath("C:/");
@@ -33,9 +27,11 @@ public class SaveHandler extends AbstractHandler implements IHandler {
 		String fileName = fileDialog.open();
 		if (fileName != null) {
 			try {
-				scope.save(fileName);
+				ScopeEditor editor = EditorHandler.getCurrentEditor(event);
+				if (editor != null) {
+					editor.getScope().save(fileName);
+				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

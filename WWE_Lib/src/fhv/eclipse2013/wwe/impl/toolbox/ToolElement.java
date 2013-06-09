@@ -1,23 +1,17 @@
 package fhv.eclipse2013.wwe.impl.toolbox;
 
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Point;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
-import fhv.eclipse2013.wwe.impl.field.WireWorldField;
-import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
 public class ToolElement implements IToolElement {
 
@@ -34,8 +28,10 @@ public class ToolElement implements IToolElement {
 			int width = Integer.parseInt(rootNode.getChild("width").getValue());
 			int height = Integer.parseInt(rootNode.getChild("height")
 					.getValue());
+			String image = rootNode.getChild("image").getValue();
 
-			element = new ToolElement(name, xmlFile.getName(), width, height);
+			element = new ToolElement(name, xmlFile.getAbsolutePath(), width,
+					height, image);
 
 			Element fields = rootNode.getChild("fields");
 			for (Element field : fields.getChildren("field")) {
@@ -59,16 +55,31 @@ public class ToolElement implements IToolElement {
 	private String name;
 	private FieldState[][] fields;
 	private String filename;
+	private String image;
 
-	public ToolElement(String name, String filename, int width, int height) {
+	public ToolElement(String name, String filename, int width, int height,
+			String image) {
 		this.name = name;
 		this.filename = filename;
+
+		if (!image.equals("")) {
+			File file = new File(filename);
+			String folder = file.getAbsolutePath().replace(file.getName(), "");
+			image = folder + image;
+			this.image = image;
+		} else {
+			this.image = image;
+		}
 		this.size = new Dimension(width, height);
 		this.fields = new FieldState[height][width];
 	}
 
 	private void setField(int x, int y, FieldState state) {
 		this.fields[x][y] = state;
+	}
+
+	public String getFilename() {
+		return filename;
 	}
 
 	@Override
@@ -84,5 +95,15 @@ public class ToolElement implements IToolElement {
 	@Override
 	public FieldState[][] getFields() {
 		return fields;
+	}
+
+	@Override
+	public String getImage() {
+		return image;
+	}
+
+	@Override
+	public String toString() {
+		return this.getName();
 	}
 }

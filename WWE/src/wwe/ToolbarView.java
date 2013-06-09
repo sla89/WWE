@@ -1,5 +1,7 @@
 package wwe;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -11,6 +13,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+
+import fhv.eclipse2013.wwe.impl.toolbox.ToolElement;
+
+import wwe.util.SimulationScopeHandler;
 
 public class ToolbarView extends ViewPart {
 	public static final String ID = "WWE.toolbarView";
@@ -56,8 +62,18 @@ public class ToolbarView extends ViewPart {
 
 		@Override
 		public Image getImage(Object obj) {
-			return PlatformUI.getWorkbench().getSharedImages()
-					.getImage(ISharedImages.IMG_OBJ_ELEMENT);
+			ToolElement element = (ToolElement) obj;
+			String img = element.getImage();
+			if (!img.equals("")) {
+				ImageDescriptor image = ImageDescriptor.createFromFile(null,
+						img);
+				image = ImageDescriptor.createFromImageData(image
+						.getImageData().scaledTo(50, 50));
+				return image.createImage();
+			} else {
+				return PlatformUI.getWorkbench().getSharedImages()
+						.getImage(ISharedImages.IMG_OBJ_ELEMENT);
+			}
 		}
 	}
 
@@ -72,7 +88,23 @@ public class ToolbarView extends ViewPart {
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
 		// Provide the input to the ContentProvider
-		viewer.setInput(new String[] { "One", "Two", "Three" });
+		viewer.setInput(SimulationScopeHandler.INSTANCE.getFactory()
+				.readToolboxFolder(
+						Activator.getDefault().getPreferenceStore()
+								.getString("PATH")));
+
+		Activator.getDefault().getPreferenceStore()
+				.addPropertyChangeListener(new IPropertyChangeListener() {
+					@Override
+					public void propertyChange(
+							org.eclipse.jface.util.PropertyChangeEvent event) {
+						if (event.getProperty() == "PATH") {
+							viewer.setInput(SimulationScopeHandler.INSTANCE
+									.getFactory().readToolboxFolder(
+											(String) event.getNewValue()));
+						}
+					}
+				});
 	}
 
 	/**

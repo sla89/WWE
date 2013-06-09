@@ -25,13 +25,7 @@
             allowMultiple="false"
             class="wwe.ToolbarView"
             id="WWE.toolbarView"
-            name="ToolbarView">
-      </view>
-      <view
-            allowMultiple="false"
-            class="wwe.WireworldView"
-            id="WWE.wireworldView"
-            name="WireworldView"
+            name="Toolbar"
             restorable="true">
       </view>
    </extension>
@@ -80,6 +74,14 @@
             <command
                   commandId="org.eclipse.ui.file.exit"
                   label="Exit">
+            </command>
+         </menu>
+         <menu
+               label="Advanced">
+            <command
+                  commandId="WWE.preferences"
+                  label="Preferences"
+                  style="push">
             </command>
          </menu>
       </menuContribution>
@@ -152,6 +154,10 @@
             class="wwe.handler.NewHandler"
             commandId="WWE.NewHandler">
       </handler>
+      <handler
+            class="wwe.handler.PreferencesHandler"
+            commandId="WWE.preferences">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -195,6 +201,29 @@
             id="WWE.NewCmd"
             name="New Command">
       </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="wwe.scope.ScopeEditor"
+            default="false"
+            id="WWE.scope.ScopeEditor"
+            name="Simulation Scope">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="wwe.preferences.ToolbarPreferencePage"
+            id="WWE.preferences.toolbar"
+            name="Toolbar">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="wwe.preferences.ToolboxInitializer">
+      </initializer>
    </extension>
 
 </plugin>

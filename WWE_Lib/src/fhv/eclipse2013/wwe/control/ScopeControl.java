@@ -23,7 +23,7 @@ public class ScopeControl extends JPanel {
 				.getHeight()));
 
 		for (int x = 0; x < scope.getWidth(); x++) {
-			for (int y = 0; y < scope.getWidth(); y++) {
+			for (int y = 0; y < scope.getHeight(); y++) {
 				this.fieldPanel.add(new FieldControl(x, y, this.scope));
 			}
 		}

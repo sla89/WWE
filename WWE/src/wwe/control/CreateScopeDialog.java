@@ -15,6 +15,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import wwe.util.SimulationScopeHandler;
+
 public class CreateScopeDialog extends TitleAreaDialog {
 
 	private Text widthText;
@@ -56,7 +58,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		label1.setText("Width:");
 
 		widthText = new Text(parent, SWT.BORDER);
-		widthText.setText("100");
+		widthText.setText(SimulationScopeHandler.WORLD_SIZE + "");
 		widthText.setLayoutData(gridData);
 
 		Label label2 = new Label(parent, SWT.NONE);
@@ -66,9 +68,9 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.horizontalAlignment = GridData.FILL;
 		heightText = new Text(parent, SWT.BORDER);
-		heightText.setText("100");
+		heightText.setText(SimulationScopeHandler.WORLD_SIZE + "");
 		heightText.setLayoutData(gridData);
-		
+
 		Label label3 = new Label(parent, SWT.NONE);
 		label3.setText("Name:");
 		// You should not re-use GridData

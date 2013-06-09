@@ -5,28 +5,29 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 
-import wwe.util.SimulationScopeHandler;
-import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.SimulationState;
+
+import wwe.scope.ScopeEditor;
+import wwe.util.EditorHandler;
 
 public class StepBackHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		int index = SimulationScopeHandler.INSTANCE.getCurrentIndex();
-		ISimulationScope scope = SimulationScopeHandler.INSTANCE
-				.getScope(index);
-		scope.backStep();
+		ScopeEditor editor = EditorHandler.getCurrentEditor(event);
+		if (editor != null) {
+			editor.getScope().backStep();
+		}
 		return null;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		int index = SimulationScopeHandler.INSTANCE.getCurrentIndex();
-		// just enable during pause state
-		if (SimulationScopeHandler.INSTANCE.getState(index) == SimulationState.paused)
-			return true;
-		else
-			return false;
+		ScopeEditor editor = EditorHandler.getCurrentEditor();
+		if (editor != null) {
+			return editor.getScope().getSimulationState()
+					.equals(SimulationState.paused);
+		}
+		return false;
 	}
 }

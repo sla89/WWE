@@ -8,17 +8,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
+
+import wwe.util.EditorHandler;
 import wwe.util.SimulationScopeHandler;
 
 public class LoadHandler extends AbstractHandler implements IHandler {
 
-	Shell s;
-
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		int index = SimulationScopeHandler.INSTANCE.getCurrentIndex();
-
-		s = new Shell();
+	Shell	s = new Shell();
 		FileDialog fileDialog = new FileDialog(s, SWT.OPEN);
 		fileDialog.setText("Load");
 		fileDialog.setFilterPath("C:/");
@@ -27,7 +26,10 @@ public class LoadHandler extends AbstractHandler implements IHandler {
 
 		String fileName = fileDialog.open();
 		if (fileName != null) {
-			SimulationScopeHandler.INSTANCE.loadScope(fileName, index);
+			ISimulationScope scope = SimulationScopeHandler.INSTANCE.getFactory()
+					.loadScope(fileName);
+			EditorHandler.newEditor(event, scope);
+
 		}
 		return null;
 	}
