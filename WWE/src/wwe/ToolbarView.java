@@ -14,9 +14,8 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import fhv.eclipse2013.wwe.impl.toolbox.ToolElement;
-
 import wwe.util.SimulationScopeHandler;
+import fhv.eclipse2013.wwe.impl.toolbox.ToolElement;
 
 public class ToolbarView extends ViewPart {
 	public static final String ID = "WWE.toolbarView";

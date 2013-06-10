@@ -12,6 +12,7 @@ import wwe.scope.ScopeEditor;
 import wwe.scope.ScopeEditorInput;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
+@SuppressWarnings("restriction")
 public class EditorHandler {
 	public static void newEditor(ExecutionEvent event, ISimulationScope scope) {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);

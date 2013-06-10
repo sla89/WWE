@@ -1,4 +1,4 @@
-package wwe.control;
+package wwe.dialog;
 
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -34,7 +34,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 	public void create() {
 		super.create();
 		// Set the title
-		setTitle("SimulationScope Size");
+		setTitle("New SimulationScope");
 		// Set the message
 		setMessage(
 				"Select Size of your SimulationScope. Bigger than 100x100 needs a very good Computer.",

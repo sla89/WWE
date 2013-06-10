@@ -1,9 +1,6 @@
 package fhv.eclipse2013.wwe.contract.toolbox;
 
 import java.awt.Dimension;
-import java.awt.Image;
-
-import org.eclipse.swt.graphics.ImageData;
 
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 

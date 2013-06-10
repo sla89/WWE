@@ -27,6 +27,12 @@ public class FieldControl extends JPanel implements PropertyChangeListener {
 		this.scope = scope;
 		this.setCoord(new Point(x, y));
 
+		if (scope.fieldExists(x, y)) {
+			FieldControl.this.initField();
+		} else {
+			setColor(FieldState.none);
+		}
+
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {

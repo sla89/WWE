@@ -1,4 +1,4 @@
-package wwe.handler;
+package wwe.handler.scope;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -10,13 +10,13 @@ import fhv.eclipse2013.wwe.contract.state.SimulationState;
 import wwe.scope.ScopeEditor;
 import wwe.util.EditorHandler;
 
-public class PauseHandler extends AbstractHandler implements IHandler {
+public class StepBackHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		ScopeEditor editor = EditorHandler.getCurrentEditor(event);
 		if (editor != null) {
-			editor.getScope().start();
+			editor.getScope().backStep();
 		}
 		return null;
 	}
@@ -26,7 +26,7 @@ public class PauseHandler extends AbstractHandler implements IHandler {
 		ScopeEditor editor = EditorHandler.getCurrentEditor();
 		if (editor != null) {
 			return editor.getScope().getSimulationState()
-					.equals(SimulationState.started);
+					.equals(SimulationState.paused);
 		}
 		return false;
 	}

@@ -131,73 +131,73 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="wwe.handler.PlayHandler"
+            class="wwe.handler.scope.PlayHandler"
             commandId="WWE.PlayHandler">
       </handler>
       <handler
-            class="wwe.handler.PauseHandler"
+            class="wwe.handler.scope.PauseHandler"
             commandId="WWE.PauseHandler">
       </handler>
       <handler
-            class="wwe.handler.NextStepHandler"
+            class="wwe.handler.scope.NextStepHandler"
             commandId="WWE.NextStepHandler">
       </handler>
       <handler
-            class="wwe.handler.StepBackHandler"
+            class="wwe.handler.scope.StepBackHandler"
             commandId="WWE.StepBackHandler">
       </handler>
       <handler
-            class="wwe.handler.RevertHandler"
+            class="wwe.handler.scope.RevertHandler"
             commandId="WWE.RevertHandler">
       </handler>
       <handler
-            class="wwe.handler.NewHandler"
+            class="wwe.handler.file.NewHandler"
             commandId="WWE.NewHandler">
       </handler>
       <handler
-            class="wwe.handler.PreferencesHandler"
+            class="wwe.handler.advanced.PreferencesHandler"
             commandId="WWE.preferences">
       </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="wwe.handler.PlayHandler"
+            defaultHandler="wwe.handler.scope.PlayHandler"
             id="WWE.PlayCmd"
             name="Play Command">
       </command>
       <command
-            defaultHandler="wwe.handler.PauseHandler"
+            defaultHandler="wwe.handler.scope.PauseHandler"
             id="WWE.PauseCmd"
             name="Pause Command">
       </command>
       <command
-            defaultHandler="wwe.handler.RevertHandler"
+            defaultHandler="wwe.handler.scope.RevertHandler"
             id="WWE.RevertCmd"
             name="Revert Command">
       </command>
       <command
-            defaultHandler="wwe.handler.StepBackHandler"
+            defaultHandler="wwe.handler.scope.StepBackHandler"
             id="WWE.StepBackCmd"
             name="Step Back Command">
       </command>
       <command
-            defaultHandler="wwe.handler.NextStepHandler"
+            defaultHandler="wwe.handler.scope.NextStepHandler"
             id="WWE.NextStepCmd"
             name="Next Step Command">
       </command>
       <command
-            defaultHandler="wwe.handler.SaveHandler"
+            defaultHandler="wwe.handler.file.SaveHandler"
             id="WWE.SaveCmd"
             name="Save Command">
       </command>
       <command
-            defaultHandler="wwe.handler.LoadHandler"
+            defaultHandler="wwe.handler.file.LoadHandler"
             id="WWE.LoadCmd"
             name="Load Command">
       </command>
       <command
-            defaultHandler="wwe.handler.NewHandler"
+            defaultHandler="wwe.handler.file.NewHandler"
             id="WWE.NewCmd"
             name="New Command">
       </command>

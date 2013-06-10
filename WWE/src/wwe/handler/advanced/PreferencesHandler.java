@@ -1,4 +1,4 @@
-package wwe.handler;
+package wwe.handler.advanced;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
