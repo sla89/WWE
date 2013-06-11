@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.graphics.Rectangle;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -18,6 +19,7 @@ import org.jdom2.output.XMLOutputter;
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
+import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 import fhv.eclipse2013.wwe.impl.field.WireWorldField;
 
 public class SimulationScope extends AbstractScope {
@@ -75,17 +77,46 @@ public class SimulationScope extends AbstractScope {
 	}
 
 	@Override
+	public Rectangle getMinRectangle() {
+		Rectangle p = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE,
+				Integer.MIN_VALUE, Integer.MIN_VALUE);
+		for (int x = 0; x < this.getHeight(); x++) {
+			for (int y = 0; y < this.getWidth(); y++) {
+				if (fieldExists(x, y)
+						&& !getField(x, y).getState().equals(FieldState.none)) {
+					if (p.x > x)
+						p.x = x;
+					if (p.y > y)
+						p.y = y;
+					if (p.width < y + 1)
+						p.width = y + 1;
+					if (p.height < x + 1)
+						p.height = x + 1;
+				}
+			}
+		}
+		return p;
+	}
+
+	@Override
+	public Rectangle getRect() {
+		return new Rectangle(0, 0, getWidth(), getHeight());
+	}
+
+	@Override
 	public void save(String filename) throws IOException {
 		Element scope = new Element("scope");
 		Document doc = new Document(scope);
 
 		scope.setAttribute(new Attribute("name", this.getName()));
-		scope.addContent(new Element("width").setText(this.getWidth() + ""));
-		scope.addContent(new Element("height").setText(this.getHeight() + ""));
+		scope.addContent(new Element("width").setText((int) this.getWidth()
+				+ ""));
+		scope.addContent(new Element("height").setText((int) this.getHeight()
+				+ ""));
 
 		Element fields = new Element("fields");
-		for (int x = 0; x < this.getWidth(); x++) {
-			for (int y = 0; y < this.getHeight(); y++) {
+		for (int x = 0; x < this.getHeight(); x++) {
+			for (int y = 0; y < this.getWidth(); y++) {
 				if (this.fieldExists(x, y)) {
 					IField f = this.getField(x, y);
 					if (!f.getState().equals(FieldState.none)) {
@@ -102,5 +133,54 @@ public class SimulationScope extends AbstractScope {
 		XMLOutputter xmlOutput = new XMLOutputter();
 		xmlOutput.setFormat(Format.getPrettyFormat());
 		xmlOutput.output(doc, new FileWriter(filename));
+	}
+
+	@Override
+	public void saveAsToolElement(String filename, String imageFileName)
+			throws IOException {
+		Element scope = new Element("scope");
+		Document doc = new Document(scope);
+
+		Rectangle max = getMinRectangle();
+
+		scope.setAttribute(new Attribute("name", this.getName()));
+		scope.addContent(new Element("width").setText((max.width) + ""));
+		scope.addContent(new Element("height").setText((max.height) + ""));
+		scope.addContent(new Element("image").setText(imageFileName));
+
+		Element fields = new Element("fields");
+		for (int x = max.x; x < this.getHeight(); x++) {
+			for (int y = max.y; y < this.getWidth(); y++) {
+				FieldState f = this.getField(x, y).getState();
+				if (f != null && !f.equals(FieldState.none)) {
+					Element e = new Element("field");
+					String sx = String.format("%d", x - max.x);
+					String sy = String.format("%d", y - max.y);
+					e.setAttribute(new Attribute("y", sy));
+					e.setAttribute(new Attribute("x", sx));
+					e.setAttribute(new Attribute("state", f.name()));
+					fields.addContent(e);
+				}
+			}
+		}
+		scope.addContent(fields);
+
+		XMLOutputter xmlOutput = new XMLOutputter();
+		xmlOutput.setFormat(Format.getPrettyFormat());
+		xmlOutput.output(doc, new FileWriter(filename));
+	}
+
+	@Override
+	public void place(IToolElement element, Point coord) {
+		if (!this.getLock()) {
+			for (int x = 0; x < element.getHeight(); x++) {
+				for (int y = 0; y < element.getWidth(); y++) {
+					FieldState state = element.getField(x, y);
+					if (state != null) {
+						getField(coord.x + x, coord.y + y).setState(state);
+					}
+				}
+			}
+		}
 	}
 }

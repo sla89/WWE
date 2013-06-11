@@ -1,11 +1,15 @@
 package fhv.eclipse2013.wwe.contract.scope;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
+import org.eclipse.swt.graphics.Rectangle;
+
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.state.SimulationState;
+import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 
 public interface ISimulationScope {
 
@@ -45,8 +49,20 @@ public interface ISimulationScope {
 
 	void removeStepListener(IStepChangedEventListener l);
 
+	void addFieldAddedListener(IFieldAddedEventListener l);
+
+	void removeFieldAddedListener(IFieldAddedEventListener l);
+
 	boolean fieldExists(int x, int y);
 
+	void place(IToolElement element, Point coord);
+
 	void save(String filename) throws IOException;
+
+	void saveAsToolElement(String filename, String imageFileName) throws IOException;
+
+	Rectangle getMinRectangle();
+
+	Rectangle getRect();
 
 }

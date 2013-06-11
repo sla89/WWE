@@ -89,11 +89,11 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 
 	@Override
 	public boolean fieldExists(int x, int y) {
-		if ((x >= 0) && (x < this.getWidth()) && (y >= 0)
-				&& (y < this.getHeight())) {
-			if (this.fields[x] == null) {
+		if ((x >= 0) && (x < this.getHeight()) && (y >= 0)
+				&& (y < this.getWidth())) {
+			if (this.fields[y] == null) {
 				return false;
-			} else if (this.fields[x][y] != null) {
+			} else if (this.fields[y][x] != null) {
 				return true;
 			}
 		}
@@ -101,7 +101,7 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	}
 
 	protected boolean rowExists(int x) {
-		if ((x >= 0) && (x < this.getWidth())) {
+		if ((x >= 0) && (x < this.getHeight())) {
 			if (this.fields[x] != null) {
 				return true;
 			}
@@ -111,16 +111,17 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 
 	@Override
 	public IField getField(int x, int y) {
-		if ((x >= 0) && (x < this.getWidth()) && (y >= 0)
-				&& (y < this.getHeight())) {
-			if (this.fields[x] == null) {
-				this.fields[x] = new IField[this.getHeight()];
+		if ((x >= 0) && (x < this.getHeight()) && (y >= 0)
+				&& (y < this.getWidth())) {
+			if (this.fields[y] == null) {
+				this.fields[y] = new IField[this.getWidth()];
 			}
-			if (this.fields[x][y] == null) {
-				this.fields[x][y] = factory.createField(this, new Point(x, y));
-				this.fields[x][y].setLock(this.getLock());
+			if (this.fields[y][x] == null) {
+				this.fields[y][x] = factory.createField(this, new Point(x, y));
+				this.fields[y][x].setLock(this.getLock());
+				this.onFieldAdded(y, x, this.fields[y][x]);
 			}
-			return this.fields[x][y];
+			return this.fields[y][x];
 		} else {
 			return null;
 		}

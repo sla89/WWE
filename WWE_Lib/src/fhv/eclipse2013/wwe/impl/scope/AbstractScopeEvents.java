@@ -3,11 +3,14 @@ package fhv.eclipse2013.wwe.impl.scope;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import fhv.eclipse2013.wwe.contract.IField;
+import fhv.eclipse2013.wwe.contract.scope.IFieldAddedEventListener;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.scope.IStateChangedEventListener;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener.Type;
 import fhv.eclipse2013.wwe.contract.state.SimulationState;
+import fhv.eclipse2013.wwe.impl.scope.event.FieldAddedSupport;
 import fhv.eclipse2013.wwe.impl.scope.event.StateChangedSupport;
 import fhv.eclipse2013.wwe.impl.scope.event.StepChangedSupport;
 
@@ -16,6 +19,7 @@ public abstract class AbstractScopeEvents implements ISimulationScope {
 			this);
 	private StateChangedSupport stateChanged = new StateChangedSupport();
 	private StepChangedSupport stepChanged = new StepChangedSupport();
+	private FieldAddedSupport fieldAdded = new FieldAddedSupport();
 	private boolean lock;
 
 	protected boolean getLock() {
@@ -37,6 +41,10 @@ public abstract class AbstractScopeEvents implements ISimulationScope {
 
 	protected void onStepChanged(Type t) {
 		stepChanged.fireStepChanged(t);
+	}
+
+	protected void onFieldAdded(int x, int y, IField f) {
+		fieldAdded.fireStepChanged(x, y, f);
 	}
 
 	@Override
@@ -65,4 +73,11 @@ public abstract class AbstractScopeEvents implements ISimulationScope {
 		this.stateChanged.removeStateChangedListener(l);
 	}
 
+	public void addFieldAddedListener(IFieldAddedEventListener l) {
+		this.fieldAdded.addStepListener(l);
+	}
+
+	public void removeFieldAddedListener(IFieldAddedEventListener l) {
+		this.fieldAdded.removeStepListener(l);
+	}
 }

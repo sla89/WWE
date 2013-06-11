@@ -8,19 +8,32 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import wwe.scope.control.dnd.ObjectTransfer;
+import wwe.scope.control.dnd.ToolboxDragSourceListener;
 import wwe.util.SimulationScopeHandler;
 import fhv.eclipse2013.wwe.impl.toolbox.ToolElement;
 
 public class ToolbarView extends ViewPart {
 	public static final String ID = "WWE.toolbarView";
 
-	private TableViewer viewer;
+	// TODO perhaps contextmenu (right-click) delete toolboxitem
+	
+	public static void reload() {
+		viewer.setInput(SimulationScopeHandler.INSTANCE.getFactory()
+				.readToolboxFolder(
+						Activator.getDefault().getPreferenceStore()
+								.getString("PATH")));
+	}
+
+	private static TableViewer viewer;
 
 	/**
 	 * The content provider class is responsible for providing objects to the
@@ -64,11 +77,16 @@ public class ToolbarView extends ViewPart {
 			ToolElement element = (ToolElement) obj;
 			String img = element.getImage();
 			if (!img.equals("")) {
-				ImageDescriptor image = ImageDescriptor.createFromFile(null,
-						img);
-				image = ImageDescriptor.createFromImageData(image
-						.getImageData().scaledTo(50, 50));
-				return image.createImage();
+				try {
+					ImageDescriptor image = ImageDescriptor.createFromFile(
+							null, img);
+					image = ImageDescriptor.createFromImageData(image
+							.getImageData().scaledTo(50, 50));
+					return image.createImage();
+				} catch (Exception ex) {
+					return PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJ_ELEMENT);
+				}
 			} else {
 				return PlatformUI.getWorkbench().getSharedImages()
 						.getImage(ISharedImages.IMG_OBJ_ELEMENT);
@@ -87,10 +105,11 @@ public class ToolbarView extends ViewPart {
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
 		// Provide the input to the ContentProvider
-		viewer.setInput(SimulationScopeHandler.INSTANCE.getFactory()
-				.readToolboxFolder(
-						Activator.getDefault().getPreferenceStore()
-								.getString("PATH")));
+		reload();
+
+		viewer.addDragSupport(DND.DROP_COPY | DND.DROP_MOVE,
+				new Transfer[] { ObjectTransfer.elementTransfer },
+				new ToolboxDragSourceListener(viewer));
 
 		Activator.getDefault().getPreferenceStore()
 				.addPropertyChangeListener(new IPropertyChangeListener() {
@@ -98,9 +117,7 @@ public class ToolbarView extends ViewPart {
 					public void propertyChange(
 							org.eclipse.jface.util.PropertyChangeEvent event) {
 						if (event.getProperty() == "PATH") {
-							viewer.setInput(SimulationScopeHandler.INSTANCE
-									.getFactory().readToolboxFolder(
-											(String) event.getNewValue()));
+							reload();
 						}
 					}
 				});

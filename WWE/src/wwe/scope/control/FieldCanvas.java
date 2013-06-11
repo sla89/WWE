@@ -14,10 +14,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
 import fhv.eclipse2013.wwe.contract.IField;
+import fhv.eclipse2013.wwe.contract.scope.IFieldAddedEventListener;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 
-public class FieldCanvas extends Canvas implements PropertyChangeListener {
+public class FieldCanvas extends Canvas implements PropertyChangeListener,
+		IFieldAddedEventListener, PaintListener {
 
 	Display d;
 
@@ -39,6 +41,9 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener {
 			setColor(FieldState.none);
 		}
 
+		this.addPaintListener(this);
+		this.scope.addFieldAddedListener(this);
+
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -48,18 +53,6 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener {
 				field.click();
 			}
 		});
-
-		this.addPaintListener(new PaintListener() {
-			@Override
-			public void paintControl(PaintEvent e) {
-				// System.out.println("Redraw: [" + coord.x + "," + coord.y +
-				// "]");
-				e.gc.setBackground(e.display.getSystemColor(bg));
-				e.gc.fillRectangle(0, 0, e.width, e.height);
-				e.gc.setForeground(e.display.getSystemColor(SWT.COLOR_WHITE));
-				e.gc.drawRectangle(0, 0, e.width, e.height);
-			}
-		});
 	}
 
 	private void initField() {
@@ -67,6 +60,10 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener {
 				(int) this.coord.getY());
 		this.field.addPropertyChangeListener(this);
 		this.setColor(this.field.getState());
+	}
+
+	public ISimulationScope getScope() {
+		return scope;
 	}
 
 	public void setCoord(Point coord) {
@@ -85,6 +82,7 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener {
 	}
 
 	private void setColor(FieldState state) {
+		// TODO Colors
 		if (state.equals(FieldState.none)) {
 			this.bg = SWT.COLOR_BLACK;
 		} else if (state.equals(FieldState.conductor)) {
@@ -118,5 +116,22 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener {
 		initialSize.x = 20;
 		initialSize.y = 20;
 		return initialSize;
+	}
+
+	@Override
+	public void handleFieldAdded(int x, int y, IField field) {
+		if (x == (int) coord.getX() && y == (int) coord.getY()) {
+			initField();
+		}
+	}
+
+	@Override
+	public void paintControl(PaintEvent e) {
+		e.gc.setBackground(e.display.getSystemColor(bg));
+		e.gc.fillRectangle(0, 0, e.width, e.height);
+		e.gc.setForeground(e.display.getSystemColor(SWT.COLOR_WHITE));
+		e.gc.drawRectangle(0, 0, e.width, e.height);
+		// TODO Preference String?
+		e.gc.drawString(coord.x + "," + coord.y, 2, 2);
 	}
 }

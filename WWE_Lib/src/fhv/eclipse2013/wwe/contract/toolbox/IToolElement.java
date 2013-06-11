@@ -9,7 +9,13 @@ public interface IToolElement {
 
 	Dimension getSize();
 
-	FieldState[][] getFields();
-
 	String getImage();
+
+	String getXml();
+
+	int getHeight();
+
+	int getWidth();
+
+	FieldState getField(int x, int y);
 }

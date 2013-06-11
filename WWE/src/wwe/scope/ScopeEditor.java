@@ -3,6 +3,9 @@ package wwe.scope;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTarget;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
@@ -11,6 +14,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
 import wwe.scope.control.FieldCanvas;
+import wwe.scope.control.dnd.ObjectTransfer;
+import wwe.scope.control.dnd.ToolboxTarget;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class ScopeEditor extends EditorPart {
@@ -44,11 +49,16 @@ public class ScopeEditor extends EditorPart {
 		scroll.setLayout(new GridLayout(1, true));
 
 		Composite scrollContent = new Composite(scroll, SWT.NONE);
-		scrollContent.setLayout(new GridLayout(scope.getWidth(), true));
+		scrollContent.setLayout(new GridLayout(scope.getWidth(), false));
 
-		for (int x = 0; x < scope.getWidth(); x++) {
-			for (int y = 0; y < scope.getHeight(); y++) {
-				new FieldCanvas(scrollContent, 1, scope, x, y);
+		for (int x = 0; x < scope.getHeight(); x++) {
+			for (int y = 0; y < scope.getWidth(); y++) {
+				FieldCanvas canvas = new FieldCanvas(scrollContent, 1, scope,
+						x, y);
+				DropTarget dt = new DropTarget(canvas, DND.DROP_COPY
+						| DND.DROP_MOVE);
+				dt.setTransfer(new Transfer[] { ObjectTransfer.elementTransfer });
+				dt.addDropListener(new ToolboxTarget(canvas));
 			}
 		}
 

@@ -1,5 +1,7 @@
 package wwe.dialog;
 
+import java.io.File;
+
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.JFaceResources;
@@ -15,18 +17,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import wwe.util.SimulationScopeHandler;
+import wwe.Activator;
 
-public class CreateScopeDialog extends TitleAreaDialog {
+public class SaveAsToolElement extends TitleAreaDialog {
 
-	private Text widthText;
 	private Text nameText;
-	private Text heightText;
-	private int width;
-	private int height;
+	private Text fileNameText;
 	private String name;
 
-	public CreateScopeDialog(Shell parentShell) {
+	public SaveAsToolElement(Shell parentShell) {
 		super(parentShell);
 	}
 
@@ -34,12 +33,11 @@ public class CreateScopeDialog extends TitleAreaDialog {
 	public void create() {
 		super.create();
 		// Set the title
-		setTitle("New SimulationScope");
+		setTitle("Save as ToolElement");
 		// Set the message
 		setMessage(
-				"Select Size of your SimulationScope. Bigger than 50x50 needs a very good Computer.",
+				"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.",
 				IMessageProvider.INFORMATION);
-
 	}
 
 	@Override
@@ -54,23 +52,6 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.horizontalAlignment = GridData.FILL;
 
-		Label label1 = new Label(parent, SWT.NONE);
-		label1.setText("Width:");
-
-		widthText = new Text(parent, SWT.BORDER);
-		widthText.setText(SimulationScopeHandler.WORLD_SIZE + "");
-		widthText.setLayoutData(gridData);
-
-		Label label2 = new Label(parent, SWT.NONE);
-		label2.setText("Height:");
-		// You should not re-use GridData
-		gridData = new GridData();
-		gridData.grabExcessHorizontalSpace = true;
-		gridData.horizontalAlignment = GridData.FILL;
-		heightText = new Text(parent, SWT.BORDER);
-		heightText.setText(SimulationScopeHandler.WORLD_SIZE + "");
-		heightText.setLayoutData(gridData);
-
 		Label label3 = new Label(parent, SWT.NONE);
 		label3.setText("Name:");
 		// You should not re-use GridData
@@ -80,6 +61,17 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		nameText = new Text(parent, SWT.BORDER);
 		nameText.setText("");
 		nameText.setLayoutData(gridData);
+
+		Label label4 = new Label(parent, SWT.NONE);
+		label4.setText("File name:");
+		// You should not re-use GridData
+		gridData = new GridData();
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.horizontalAlignment = GridData.FILL;
+		fileNameText = new Text(parent, SWT.BORDER);
+		fileNameText.setText("");
+		fileNameText.setLayoutData(gridData);
+
 		return parent;
 	}
 
@@ -93,10 +85,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		gridData.horizontalAlignment = SWT.CENTER;
 
 		parent.setLayoutData(gridData);
-		// Create Add button
-		// Own method as we need to overview the SelectionAdapter
-		createOkButton(parent, OK, "Create", true);
-		// Add a SelectionListener
+		createOkButton(parent, OK, "Save", true);
 
 		// Create Cancel button
 		Button cancelButton = createButton(parent, CANCEL, "Cancel", false);
@@ -136,45 +125,37 @@ public class CreateScopeDialog extends TitleAreaDialog {
 
 	private boolean isValidInput() {
 		boolean valid = true;
-		if (widthText.getText().length() == 0) {
-			setErrorMessage("Please maintain width");
-			valid = false;
-		}
 		if (nameText.getText().length() == 0) {
 			setErrorMessage("Please maintain name");
 			valid = false;
 		}
-		if (heightText.getText().length() == 0) {
-			setErrorMessage("Please maintain height");
+		if (fileNameText.getText().length() == 0) {
+			setErrorMessage("Please maintain name");
 			valid = false;
 		}
-		if (!tryParseInt(widthText.getText())
-				&& !tryParseInt(heightText.getText())) {
-			setErrorMessage("Please maintain Integer values");
+		if (new File(getFileName()).exists()) {
+			setErrorMessage("File Exists");
 			valid = false;
 		}
 		return valid;
 	}
 
-	private boolean tryParseInt(String value) {
-		try {
-			Integer.parseInt(value);
-			return true;
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
+	public String getFileName() {
+		String filename = fileNameText.getText().replace(" ", "_") + ".xml";
+		filename = Activator.getDefault().getPreferenceStore()
+				.getString("PATH")
+				+ "\\" + filename;
+		return filename;
 	}
 
 	@Override
 	protected boolean isResizable() {
-		return true;
+		return false;
 	}
 
 	// Coyy textFields because the UI gets disposed
 	// and the Text Fields are not accessible any more.
 	private void saveInput() {
-		width = Integer.parseInt(widthText.getText());
-		height = Integer.parseInt(heightText.getText());
 		name = nameText.getText();
 	}
 
@@ -182,14 +163,6 @@ public class CreateScopeDialog extends TitleAreaDialog {
 	protected void okPressed() {
 		saveInput();
 		super.okPressed();
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
 	}
 
 	public String getName() {

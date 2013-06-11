@@ -67,6 +67,19 @@
                   label="Save"
                   style="push">
             </command>
+            <menu
+                  label="Save as ...">
+               <command
+                     commandId="WWE.saveAsToolCmd"
+                     label="Toolbox Element"
+                     style="push">
+               </command>
+               <command
+                     commandId="WWE.saveAsImageCmd"
+                     label="Image"
+                     style="push">
+               </command>
+            </menu>
             <separator
                   name="WWE.separator2"
                   visible="true">
@@ -157,6 +170,14 @@
       <handler
             class="wwe.handler.advanced.PreferencesHandler"
             commandId="WWE.preferences">
+      </handler>
+      <handler
+            class="wwe.handler.file.SaveAsToolHandler"
+            commandId="WWE.saveAsToolCmd">
+      </handler>
+      <handler
+            class="wwe.handler.file.SaveAsImageHandler"
+            commandId="WWE.saveAsImageCmd">
       </handler>
    </extension>
    <extension
