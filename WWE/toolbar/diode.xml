@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scope name="Diode">
-  <width>6</width>
+  <width>4</width>
   <height>3</height>
   <image>diode.png</image>
   <fields>
-    <field y="2" x="0" state="conductor" />
-    <field y="3" x="0" state="conductor" />
+    <field y="1" x="0" state="conductor" />
     <field y="0" x="1" state="conductor" />
     <field y="1" x="1" state="conductor" />
     <field y="2" x="1" state="conductor" />
-    <field y="4" x="1" state="conductor" />
-    <field y="5" x="1" state="conductor" />
+    <field y="0" x="2" state="conductor" />
     <field y="2" x="2" state="conductor" />
-    <field y="3" x="2" state="conductor" />
+    <field y="1" x="3" state="conductor" />
   </fields>
 </scope>

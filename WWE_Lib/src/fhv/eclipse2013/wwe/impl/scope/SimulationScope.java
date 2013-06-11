@@ -50,7 +50,7 @@ public class SimulationScope extends AbstractScope {
 				FieldState state = FieldState.valueOf(field
 						.getAttributeValue("state"));
 				if (fields[x] == null) {
-					fields[x] = new IField[height];
+					fields[x] = new IField[width];
 				}
 				fields[x][y] = new WireWorldField(scope, state, new Point(x, y));
 				field_list.add(fields[x][y]);
@@ -80,18 +80,18 @@ public class SimulationScope extends AbstractScope {
 	public Rectangle getMinRectangle() {
 		Rectangle p = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE,
 				Integer.MIN_VALUE, Integer.MIN_VALUE);
-		for (int x = 0; x < this.getHeight(); x++) {
-			for (int y = 0; y < this.getWidth(); y++) {
+		for (int x = 0; x < this.getWidth(); x++) {
+			for (int y = 0; y < this.getHeight(); y++) {
 				if (fieldExists(x, y)
 						&& !getField(x, y).getState().equals(FieldState.none)) {
 					if (p.x > x)
 						p.x = x;
 					if (p.y > y)
 						p.y = y;
-					if (p.width < y + 1)
-						p.width = y + 1;
-					if (p.height < x + 1)
-						p.height = x + 1;
+					if (p.width < x + 1)
+						p.width = x + 1;
+					if (p.height < y + 1)
+						p.height = y + 1;
 				}
 			}
 		}
@@ -115,8 +115,8 @@ public class SimulationScope extends AbstractScope {
 				+ ""));
 
 		Element fields = new Element("fields");
-		for (int x = 0; x < this.getHeight(); x++) {
-			for (int y = 0; y < this.getWidth(); y++) {
+		for (int x = 0; x < this.getWidth(); x++) {
+			for (int y = 0; y < this.getHeight(); y++) {
 				if (this.fieldExists(x, y)) {
 					IField f = this.getField(x, y);
 					if (!f.getState().equals(FieldState.none)) {
@@ -149,8 +149,8 @@ public class SimulationScope extends AbstractScope {
 		scope.addContent(new Element("image").setText(imageFileName));
 
 		Element fields = new Element("fields");
-		for (int x = max.x; x < this.getHeight(); x++) {
-			for (int y = max.y; y < this.getWidth(); y++) {
+		for (int x = max.x; x < this.getWidth(); x++) {
+			for (int y = max.y; y < this.getHeight(); y++) {
 				FieldState f = this.getField(x, y).getState();
 				if (f != null && !f.equals(FieldState.none)) {
 					Element e = new Element("field");
@@ -173,8 +173,8 @@ public class SimulationScope extends AbstractScope {
 	@Override
 	public void place(IToolElement element, Point coord) {
 		if (!this.getLock()) {
-			for (int x = 0; x < element.getHeight(); x++) {
-				for (int y = 0; y < element.getWidth(); y++) {
+			for (int x = 0; x < element.getWidth(); x++) {
+				for (int y = 0; y < element.getHeight(); y++) {
 					FieldState state = element.getField(x, y);
 					if (state != null) {
 						getField(coord.x + x, coord.y + y).setState(state);

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scope name="Clock">
-  <width>5</width>
+  <width>4</width>
   <height>3</height>
   <image>clock.png</image>
   <fields>
-    <field y="2" x="0" state="head" />
-    <field y="3" x="0" state="tail" />
+    <field y="1" x="0" state="conductor" />
     <field y="0" x="1" state="conductor" />
-    <field y="1" x="1" state="conductor" />
-    <field y="4" x="1" state="conductor" />
-    <field y="2" x="2" state="conductor" />
-    <field y="3" x="2" state="conductor" />
+    <field y="2" x="1" state="head" />
+    <field y="0" x="2" state="conductor" />
+    <field y="2" x="2" state="tail" />
+    <field y="1" x="3" state="conductor" />
   </fields>
 </scope>

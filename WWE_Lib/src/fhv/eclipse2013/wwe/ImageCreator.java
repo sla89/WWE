@@ -29,8 +29,8 @@ public class ImageCreator {
 			maxSize = scope.getMinRectangle();
 		}
 
-		int img_h = (int) (width / (maxSize.height - maxSize.y));
-		int img_w = (int) (height / (maxSize.width - maxSize.x));
+		int img_w = (int) (width / (maxSize.width - maxSize.x));
+		int img_h = (int) (height / (maxSize.height - maxSize.y));
 
 		createImage(g, img_w, img_h, maxSize, scope);
 
@@ -57,19 +57,19 @@ public class ImageCreator {
 
 	private static void createImage(Graphics2D g, int img_w, int img_h,
 			Rectangle maxSize, ISimulationScope scope) {
-		for (int x = maxSize.x; x < maxSize.height; x++) {
-			for (int y = maxSize.y; y < maxSize.width; y++) {
+		for (int x = maxSize.x; x < maxSize.width; x++) {
+			for (int y = maxSize.y; y < maxSize.height; y++) {
 				FieldState state = FieldState.none;
 				if (scope.fieldExists(x, y)) {
 					IField field = scope.getField(x, y);
 					state = field.getState();
 				}
-				int dx = (x - maxSize.x) * img_h;
-				int dy = (y - maxSize.y) * img_w;
+				int dx = (x - maxSize.x) * img_w;
+				int dy = (y - maxSize.y) * img_h;
 				g.setColor(getColor(state));
-				g.fillRect(dy, dx, img_w, img_h);
+				g.fillRect(dx, dy, img_w, img_h);
 				g.setColor(Color.WHITE);
-				g.drawRect(dy, dx, img_w, img_h);
+				g.drawRect(dx, dy, img_w, img_h);
 			}
 		}
 	}

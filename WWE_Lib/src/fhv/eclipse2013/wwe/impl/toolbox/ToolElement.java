@@ -88,7 +88,7 @@ public class ToolElement implements IToolElement {
 			this.image = image;
 		}
 		this.size = new Dimension(width, height);
-		this.fields = new FieldState[width][height];
+		this.fields = new FieldState[height][width];
 	}
 
 	private void setField(int x, int y, FieldState state) {
@@ -147,8 +147,8 @@ public class ToolElement implements IToolElement {
 		scope.addContent(new Element("image").setText(this.getImage()));
 
 		Element fields = new Element("fields");
-		for (int x = 0; x < this.getSize().getHeight(); x++) {
-			for (int y = 0; y < this.getSize().getWidth(); y++) {
+		for (int x = 0; x < this.getWidth(); x++) {
+			for (int y = 0; y < this.getHeight(); y++) {
 				FieldState f = this.getField(x, y);
 				if (f != null && !f.equals(FieldState.none)) {
 					Element e = new Element("field");

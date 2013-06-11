@@ -51,8 +51,8 @@ public class ScopeEditor extends EditorPart {
 		Composite scrollContent = new Composite(scroll, SWT.NONE);
 		scrollContent.setLayout(new GridLayout(scope.getWidth(), false));
 
-		for (int x = 0; x < scope.getHeight(); x++) {
-			for (int y = 0; y < scope.getWidth(); y++) {
+		for (int y = 0; y < scope.getHeight(); y++) {
+			for (int x = 0; x < scope.getWidth(); x++) {
 				FieldCanvas canvas = new FieldCanvas(scrollContent, 1, scope,
 						x, y);
 				DropTarget dt = new DropTarget(canvas, DND.DROP_COPY
