@@ -1,5 +1,6 @@
 package fhv.eclipse2013.wwe.impl.field;
 
+import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Stack;
@@ -64,6 +65,11 @@ public abstract class FieldBase implements IField {
 	@Override
 	public FieldNeighbours getNeighbours() {
 		return this.neighbours;
+	}
+
+	@Override
+	public Point getCoordinate() {
+		return getNeighbours().getCoordinate();
 	}
 
 	protected void setNeighbours(FieldNeighbours neighbours) {

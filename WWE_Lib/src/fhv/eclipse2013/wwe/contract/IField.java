@@ -1,5 +1,6 @@
 package fhv.eclipse2013.wwe.contract;
 
+import java.awt.Point;
 import java.beans.PropertyChangeListener;
 
 import org.jdom2.Element;
@@ -29,4 +30,6 @@ public interface IField {
 	Element getElement(Element e);
 
 	void reinitiateNeighbours();
+
+	Point getCoordinate();
 }

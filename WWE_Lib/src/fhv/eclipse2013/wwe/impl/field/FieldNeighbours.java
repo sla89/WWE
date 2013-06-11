@@ -121,6 +121,10 @@ public class FieldNeighbours {
 		}
 	}
 
+	public Point getCoordinate() {
+		return coordinate;
+	}
+
 	public void addPropertyChangeListener(PropertyChangeListener l) {
 		this.changes.addPropertyChangeListener(l);
 	}

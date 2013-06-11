@@ -239,11 +239,19 @@
             id="WWE.preferences.toolbar"
             name="Toolbar">
       </page>
+      <page
+            class="wwe.preferences.ScopePreferencePage"
+            id="WWE.preferences.scope"
+            name="Scope">
+      </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
             class="wwe.preferences.ToolboxInitializer">
+      </initializer>
+      <initializer
+            class="wwe.preferences.ScopeInitializer">
       </initializer>
    </extension>
 
