@@ -65,4 +65,6 @@ public interface ISimulationScope {
 
 	Rectangle getRect();
 
+	void setSize(int width, int height);
+
 }

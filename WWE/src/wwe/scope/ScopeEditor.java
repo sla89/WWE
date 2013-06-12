@@ -52,15 +52,13 @@ public class ScopeEditor extends EditorPart {
 
 		scroll.getVerticalBar().addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				canvas.redraw(0, 0, canvas.getSize().x, canvas.getSize().y,
-						true);
+				canvas.redrawComplete();
 			}
 		});
 
 		scroll.getHorizontalBar().addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				canvas.redraw(0, 0, canvas.getSize().x, canvas.getSize().y,
-						true);
+				canvas.redrawComplete();
 			}
 		});
 

@@ -1,5 +1,7 @@
 package wwe.handler.scope;
 
+import java.rmi.NotBoundException;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -23,10 +25,13 @@ public class StepBackHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public boolean isEnabled() {
-		ScopeEditor editor = EditorHandler.getCurrentEditor();
-		if (editor != null) {
-			return editor.getScope().getSimulationState()
-					.equals(SimulationState.paused);
+		try {
+			ScopeEditor editor = EditorHandler.getCurrentEditor();
+			if (editor != null) {
+				return editor.getScope().getSimulationState()
+						.equals(SimulationState.paused);
+			}
+		} catch (NotBoundException ex) {
 		}
 		return false;
 	}

@@ -53,6 +53,15 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 			}
 		}
 
+		this.scope.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent arg0) {
+				if (arg0.getPropertyName().equals("size")) {
+					redrawComplete();
+				}
+			}
+		});
+
 		DropTarget dt = new DropTarget(this, DND.DROP_COPY | DND.DROP_MOVE);
 		dt.setTransfer(new Transfer[] { ObjectTransfer.elementTransfer });
 		dt.addDropListener(new DropTargetAdapter() {
@@ -94,14 +103,21 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 		return scope;
 	}
 
+	private boolean initiated = false;
+
+	public void redrawComplete() {
+		this.initiated = false;
+		redraw();
+	}
+
 	@Override
 	public void paintControl(PaintEvent e) {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		int wx = store.getInt("block.width");
 		int wy = store.getInt("block.height");
-		if (e.x == 0 && e.y == 0 && e.width == getSize().x
-				&& e.height == getSize().y) {
+		if (!initiated) {
 			paintNotInitiated(e, wx, wy);
+			initiated = true;
 		} else {
 			paintInitiated(e, wx, wy);
 		}

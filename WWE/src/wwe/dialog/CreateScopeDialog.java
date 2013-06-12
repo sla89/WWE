@@ -25,16 +25,27 @@ public class CreateScopeDialog extends TitleAreaDialog {
 	private int width;
 	private int height;
 	private String name;
+	private String createButtonText;
 
 	public CreateScopeDialog(Shell parentShell) {
+		this(parentShell, "Create", SimulationScopeHandler.WORLD_SIZE,
+				SimulationScopeHandler.WORLD_SIZE, "");
+	}
+
+	public CreateScopeDialog(Shell parentShell, String createButtonText, int w,
+			int h, String name) {
 		super(parentShell);
+		this.createButtonText = createButtonText;
+		this.width = w;
+		this.height = h;
+		this.name = name;
 	}
 
 	@Override
 	public void create() {
 		super.create();
 		// Set the title
-		setTitle("New SimulationScope");
+		setTitle("SimulationScope");
 		// Set the message
 		setMessage(
 				"Select Size of your SimulationScope. Bigger than 50x50 needs a very good Computer.",
@@ -58,7 +69,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		label1.setText("Width:");
 
 		widthText = new Text(parent, SWT.BORDER);
-		widthText.setText(SimulationScopeHandler.WORLD_SIZE + "");
+		widthText.setText(this.width + "");
 		widthText.setLayoutData(gridData);
 
 		Label label2 = new Label(parent, SWT.NONE);
@@ -68,7 +79,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.horizontalAlignment = GridData.FILL;
 		heightText = new Text(parent, SWT.BORDER);
-		heightText.setText(SimulationScopeHandler.WORLD_SIZE + "");
+		heightText.setText(this.height + "");
 		heightText.setLayoutData(gridData);
 
 		Label label3 = new Label(parent, SWT.NONE);
@@ -78,7 +89,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.horizontalAlignment = GridData.FILL;
 		nameText = new Text(parent, SWT.BORDER);
-		nameText.setText("");
+		nameText.setText(this.name);
 		nameText.setLayoutData(gridData);
 		return parent;
 	}
@@ -95,7 +106,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		parent.setLayoutData(gridData);
 		// Create Add button
 		// Own method as we need to overview the SelectionAdapter
-		createOkButton(parent, OK, "Create", true);
+		createOkButton(parent, OK, this.createButtonText, true);
 		// Add a SelectionListener
 
 		// Create Cancel button

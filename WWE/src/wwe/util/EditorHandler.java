@@ -1,5 +1,7 @@
 package wwe.util;
 
+import java.rmi.NotBoundException;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -37,13 +39,17 @@ public class EditorHandler {
 		}
 	}
 
-	public static ScopeEditor getCurrentEditor() {
+	public static ScopeEditor getCurrentEditor() throws NotBoundException {
 		IEditorPart editor = Workbench.getInstance().getActiveWorkbenchWindow()
 				.getActivePage().getActiveEditor();
-		if (editor instanceof ScopeEditor) {
-			return (ScopeEditor) editor;
+		if (editor != null) {
+			if (editor instanceof ScopeEditor) {
+				return (ScopeEditor) editor;
+			} else {
+				return null;
+			}
 		} else {
-			return null;
+			throw new NotBoundException("No Editor exists");
 		}
 	}
 }

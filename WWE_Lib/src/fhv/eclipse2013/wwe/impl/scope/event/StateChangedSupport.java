@@ -15,6 +15,10 @@ public class StateChangedSupport {
 			event.handleStateChanged(state, lock);
 		}
 	}
+
+	public void removeAll() {
+		this.stateChangedListener.clear();
+	}
 	
 	public void addStateChangedListener(IStateChangedEventListener l) {
 		this.stateChangedListener.add(l);

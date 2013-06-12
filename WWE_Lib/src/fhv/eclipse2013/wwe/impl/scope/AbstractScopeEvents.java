@@ -39,8 +39,17 @@ public abstract class AbstractScopeEvents implements ISimulationScope {
 		stateChanged.fireStateChanged(state, lock);
 	}
 
+	protected void removeAllStateListener() {
+		stateChanged.removeAll();
+	}
+
+
 	protected void onStepChanged(Type t) {
 		stepChanged.fireStepChanged(t);
+	}
+
+	protected void removeAllStepListener() {
+		stepChanged.removeAll();
 	}
 
 	protected void onFieldAdded(int x, int y, IField f) {

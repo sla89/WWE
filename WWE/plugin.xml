@@ -92,6 +92,11 @@
          <menu
                label="Advanced">
             <command
+                  commandId="WWE.scopeProperties"
+                  label="Scope Properties"
+                  style="push">
+            </command>
+            <command
                   commandId="WWE.preferences"
                   label="Preferences"
                   style="push">
@@ -178,6 +183,10 @@
       <handler
             class="wwe.handler.file.SaveAsImageHandler"
             commandId="WWE.saveAsImageCmd">
+      </handler>
+      <handler
+            class="wwe.handler.advanced.ScopePropertiesHandler"
+            commandId="WWE.scopeProperties">
       </handler>
    </extension>
    <extension

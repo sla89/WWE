@@ -16,6 +16,38 @@ public abstract class FieldBase implements IField {
 
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
+	private IStateChangedEventListener stateListener = new IStateChangedEventListener() {
+		@Override
+		public void handleStateChanged(SimulationState state, boolean lock) {
+			FieldBase.this.lock = lock;
+		}
+	};
+
+	private IStepChangedEventListener stepListener = new IStepChangedEventListener() {
+		@Override
+		public void handlePrepareNextState() {
+			FieldBase.this.prepareNextState();
+		}
+
+		@Override
+		public void handleNextStep() {
+			FieldBase.this.nextState();
+		}
+
+		@Override
+		public void handleBackStep() {
+			if (!FieldBase.this.stack.isEmpty()) {
+				FieldBase.this.setState(FieldBase.this.stack.pop());
+			}
+		}
+
+		@Override
+		public void handleReset() {
+			FieldBase.this.setState(FieldBase.this.original);
+			FieldBase.this.stack.clear();
+		}
+	};
+
 	private FieldNeighbours neighbours;
 	private FieldState original;
 	private FieldState state;
@@ -28,38 +60,12 @@ public abstract class FieldBase implements IField {
 		this.state = FieldState.none;
 		this.original = FieldState.none;
 		this.nextState = FieldState.none;
-
-		scope.addStateChangedListener(new IStateChangedEventListener() {
-			@Override
-			public void handleStateChanged(SimulationState state, boolean lock) {
-				FieldBase.this.lock = lock;
-			}
-		});
-
-		scope.addStepListener(new IStepChangedEventListener() {
-			@Override
-			public void handlePrepareNextState() {
-				FieldBase.this.prepareNextState();
-			}
-
-			@Override
-			public void handleNextStep() {
-				FieldBase.this.nextState();
-			}
-
-			@Override
-			public void handleBackStep() {
-				if (!FieldBase.this.stack.isEmpty()) {
-					FieldBase.this.setState(FieldBase.this.stack.pop());
-				}
-			}
-
-			@Override
-			public void handleReset() {
-				FieldBase.this.setState(FieldBase.this.original);
-				FieldBase.this.stack.clear();
-			}
-		});
+		init(scope);
+	}
+@Override
+	public void init(ISimulationScope scope) {
+		scope.addStateChangedListener(stateListener);
+		scope.addStepListener(stepListener);
 	}
 
 	@Override

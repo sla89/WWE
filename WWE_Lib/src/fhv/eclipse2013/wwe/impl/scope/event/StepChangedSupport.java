@@ -23,7 +23,11 @@ public class StepChangedSupport {
 			}
 		}
 	}
-	
+
+	public void removeAll() {
+		this.stepEventListener.clear();
+	}
+
 	public void addStepListener(IStepChangedEventListener l) {
 		this.stepEventListener.add(l);
 	}

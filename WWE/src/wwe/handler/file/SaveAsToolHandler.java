@@ -1,6 +1,7 @@
 package wwe.handler.file;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -18,24 +19,29 @@ public class SaveAsToolHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		ISimulationScope scope = EditorHandler.getCurrentEditor().getScope();
-
-		String folder = Activator.getDefault().getPreferenceStore()
-				.getString("PATH");
-		String xmlFileName = getXmlFileName(scope.getName());
-		String pngFileName = getPngFileName(scope.getName());
-
 		try {
-			ImageCreator.createImage(folder, pngFileName, scope, true);
-		} catch (IOException e1) {
-			pngFileName = "";
-			e1.printStackTrace();
-		}
-		try {
-			scope.saveAsToolElement(xmlFileName, pngFileName);
-			ToolbarView.reload();
-		} catch (IOException e) {
-			e.printStackTrace();
+			ISimulationScope scope = EditorHandler.getCurrentEditor()
+					.getScope();
+
+			String folder = Activator.getDefault().getPreferenceStore()
+					.getString("PATH");
+			String xmlFileName = getXmlFileName(scope.getName());
+			String pngFileName = getPngFileName(scope.getName());
+
+			try {
+				ImageCreator.createImage(folder, pngFileName, scope, true);
+			} catch (IOException e1) {
+				pngFileName = "";
+				e1.printStackTrace();
+			}
+			try {
+				scope.saveAsToolElement(xmlFileName, pngFileName);
+				ToolbarView.reload();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (NotBoundException ex) {
+
 		}
 
 		return null;
@@ -54,6 +60,16 @@ public class SaveAsToolHandler extends AbstractHandler implements IHandler {
 		String filename = name.replace(" ", "_") + ".png";
 		filename = filename.toLowerCase();
 		return filename;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		try {
+			EditorHandler.getCurrentEditor();
+			return true;
+		} catch (NotBoundException ex) {
+			return false;
+		}
 	}
 
 }

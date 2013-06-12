@@ -1,6 +1,7 @@
 package wwe.handler.file;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -36,6 +37,16 @@ public class SaveHandler extends AbstractHandler implements IHandler {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		try {
+			EditorHandler.getCurrentEditor();
+			return true;
+		} catch (NotBoundException ex) {
+			return false;
+		}
 	}
 
 }

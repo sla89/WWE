@@ -2,6 +2,7 @@ package fhv.eclipse2013.wwe.impl.scope;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
@@ -30,6 +31,29 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	}
 
 	@Override
+	public void setSize(int width, int height) {
+		this.removeAllStepListener();
+		this.removeAllStateListener();
+		IField[][] newFields = new IField[height][width];
+		List<IField> field_list = new ArrayList<>();
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (fieldExists(x, y)) {
+					IField field = getField(x, y);
+					newFields[y][x] = field;
+					field_list.add(field);
+					field.init(this);
+				}
+			}
+		}
+		Dimension newSize = new Dimension(width, height);
+		Dimension oldSize = getSize();
+		this.size = newSize;
+		this.setFields(newFields, field_list);
+		this.onPropertyChanged("size", oldSize, newSize);
+	}
+
+	@Override
 	public int getWidth() {
 		return (int) this.getSize().getWidth();
 	}
@@ -37,15 +61,6 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	@Override
 	public int getHeight() {
 		return (int) this.getSize().getHeight();
-	}
-
-	protected void setSize(Dimension size) {
-		Dimension old = this.size;
-		onPropertyChanged("size", old, this.size = size);
-		onPropertyChanged("width", (old == null) ? null : old.getWidth(),
-				getWidth());
-		onPropertyChanged("height", (old == null) ? null : old.getHeight(),
-				getHeight());
 	}
 
 	private IField[][] fields;
@@ -75,7 +90,7 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 
 	public AbstractScope(int w, int h, String name, boolean init,
 			ISimulationFactory factory) {
-		this.setSize(new Dimension(w, h));
+		this.size = new Dimension(w, h);
 		this.name = name;
 		this.factory = factory;
 		if (init) {
