@@ -49,11 +49,11 @@ public class SimulationScope extends AbstractScope {
 				int y = Integer.parseInt(field.getAttributeValue("y"));
 				FieldState state = FieldState.valueOf(field
 						.getAttributeValue("state"));
-				if (fields[x] == null) {
-					fields[x] = new IField[width];
+				if (fields[y] == null) {
+					fields[y] = new IField[width];
 				}
-				fields[x][y] = new WireWorldField(scope, state, new Point(x, y));
-				field_list.add(fields[x][y]);
+				fields[y][x] = new WireWorldField(scope, state, new Point(x, y));
+				field_list.add(fields[y][x]);
 			}
 			scope.setFields(fields, field_list);
 
