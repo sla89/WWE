@@ -21,7 +21,6 @@ import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
-import fhv.eclipse2013.wwe.impl.field.WireWorldField;
 
 public class SimulationScope extends AbstractScope implements ISimulationScope {
 
@@ -53,7 +52,7 @@ public class SimulationScope extends AbstractScope implements ISimulationScope {
 				if (fields[y] == null) {
 					fields[y] = new IField[width];
 				}
-				fields[y][x] = new WireWorldField(scope, state, new Point(x, y));
+				fields[y][x] = factory.createField(scope, state, new Point(x, y));
 				field_list.add(fields[y][x]);
 			}
 			scope.setFields(fields, field_list);

@@ -17,7 +17,7 @@ public class WireWorldField extends FieldBase implements IField {
 		this.setNeighbours(new MooreNeighbours(scope, this, c));
 	}
 
-	public WireWorldField(SimulationScope scope, FieldState state, Point c) {
+	public WireWorldField(ISimulationScope scope, FieldState state, Point c) {
 		this(scope, c);
 		this.setState(state);
 	}

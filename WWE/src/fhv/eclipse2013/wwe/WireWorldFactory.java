@@ -9,6 +9,7 @@ import java.util.List;
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
+import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 import fhv.eclipse2013.wwe.impl.field.WireWorldField;
 import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
@@ -33,6 +34,11 @@ public class WireWorldFactory implements ISimulationFactory {
 	@Override
 	public IField createField(ISimulationScope scope, Point coord) {
 		return new WireWorldField(scope, coord);
+	}
+
+	@Override
+	public IField createField(ISimulationScope scope, FieldState state, Point coord) {
+		return new WireWorldField(scope, state, coord);
 	}
 
 	@Override
