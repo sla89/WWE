@@ -6,7 +6,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.Stack;
 
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.contract.IFieldNeighbours;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.scope.IStateChangedEventListener;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener;
@@ -49,7 +48,7 @@ public abstract class FieldBase implements IField {
 		}
 	};
 
-	private IFieldNeighbours neighbours;
+	private FieldNeighbours neighbours;
 	private FieldState original;
 	private FieldState state;
 	private FieldState nextState;
@@ -63,15 +62,14 @@ public abstract class FieldBase implements IField {
 		this.nextState = FieldState.none;
 		init(scope);
 	}
-
-	@Override
+@Override
 	public void init(ISimulationScope scope) {
 		scope.addStateChangedListener(stateListener);
 		scope.addStepListener(stepListener);
 	}
 
 	@Override
-	public IFieldNeighbours getNeighbours() {
+	public FieldNeighbours getNeighbours() {
 		return this.neighbours;
 	}
 
@@ -80,7 +78,7 @@ public abstract class FieldBase implements IField {
 		return getNeighbours().getCoordinate();
 	}
 
-	protected void setNeighbours(IFieldNeighbours neighbours) {
+	protected void setNeighbours(FieldNeighbours neighbours) {
 		this.neighbours = neighbours;
 	}
 

@@ -11,14 +11,15 @@ import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
 public class WireWorldField extends FieldBase {
 
-	public WireWorldField(ISimulationScope scope, Point coordinate) {
+	public WireWorldField(ISimulationScope scope, Point c) {
 		super(scope);
-		this.setNeighbours(new MooreNeighbours(scope, this, coordinate));
+		this.setNeighbours(new FieldNeighbours(scope, this, c));
 	}
 
-	public WireWorldField(ISimulationScope scope, FieldState state, Point c) {
-		this(scope, c);
+	public WireWorldField(SimulationScope scope, FieldState state, Point c) {
+		super(scope);
 		this.setState(state);
+		this.setNeighbours(new FieldNeighbours(scope, this, c));
 	}
 
 	@Override

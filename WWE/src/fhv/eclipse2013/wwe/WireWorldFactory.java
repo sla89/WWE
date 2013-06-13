@@ -9,7 +9,6 @@ import java.util.List;
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
-import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 import fhv.eclipse2013.wwe.impl.field.WireWorldField;
 import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
@@ -37,12 +36,6 @@ public class WireWorldFactory implements ISimulationFactory {
 	}
 
 	@Override
-	public IField createField(ISimulationScope scope, FieldState state,
-			Point coord) {
-		return new WireWorldField(scope, state, coord);
-	}
-
-	@Override
 	public IToolElement[] readToolboxFolder(String foldername) {
 		List<IToolElement> elements = new ArrayList<>();
 		File folder = new File(foldername);
@@ -66,5 +59,4 @@ public class WireWorldFactory implements ISimulationFactory {
 			return new IToolElement[0];
 		}
 	}
-
 }
