@@ -143,6 +143,12 @@
                   style="push"
                   tooltip="Next step">
             </command>
+            <command
+                  commandId="WWE.ClearCmd"
+                  icon="icons/trash_box.gif"
+                  label="Clear"
+                  style="push">
+            </command>
          </toolbar>
       </menuContribution>
    </extension>
@@ -188,6 +194,10 @@
             class="wwe.handler.advanced.ScopePropertiesHandler"
             commandId="WWE.scopeProperties">
       </handler>
+      <handler
+            class="wwe.handler.scope.ClearHandler"
+            commandId="WWE.ClearHandler">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -230,6 +240,11 @@
             defaultHandler="wwe.handler.file.NewHandler"
             id="WWE.NewCmd"
             name="New Command">
+      </command>
+      <command
+            defaultHandler="wwe.handler.scope.ClearHandler"
+            id="WWE.ClearCmd"
+            name="Clear Command">
       </command>
    </extension>
    <extension

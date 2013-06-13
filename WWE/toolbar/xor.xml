@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scope name="XOR">
+  <width>25</width>
+  <height>12</height>
+  <image>xor.png</image>
+  <fields>
+    <field y="1" x="0" state="conductor" />
+    <field y="7" x="0" state="conductor" />
+    <field y="0" x="1" state="conductor" />
+    <field y="2" x="1" state="conductor" />
+    <field y="6" x="1" state="conductor" />
+    <field y="8" x="1" state="conductor" />
+    <field y="0" x="2" state="conductor" />
+    <field y="2" x="2" state="head" />
+    <field y="6" x="2" state="conductor" />
+    <field y="8" x="2" state="conductor" />
+    <field y="0" x="3" state="conductor" />
+    <field y="2" x="3" state="tail" />
+    <field y="6" x="3" state="tail" />
+    <field y="8" x="3" state="conductor" />
+    <field y="0" x="4" state="conductor" />
+    <field y="2" x="4" state="conductor" />
+    <field y="6" x="4" state="head" />
+    <field y="8" x="4" state="conductor" />
+    <field y="0" x="5" state="conductor" />
+    <field y="2" x="5" state="conductor" />
+    <field y="6" x="5" state="conductor" />
+    <field y="8" x="5" state="conductor" />
+    <field y="0" x="6" state="conductor" />
+    <field y="2" x="6" state="conductor" />
+    <field y="6" x="6" state="conductor" />
+    <field y="8" x="6" state="conductor" />
+    <field y="0" x="7" state="conductor" />
+    <field y="2" x="7" state="conductor" />
+    <field y="6" x="7" state="conductor" />
+    <field y="8" x="7" state="conductor" />
+    <field y="0" x="8" state="conductor" />
+    <field y="2" x="8" state="head" />
+    <field y="6" x="8" state="conductor" />
+    <field y="8" x="8" state="head" />
+    <field y="1" x="9" state="tail" />
+    <field y="7" x="9" state="tail" />
+    <field y="1" x="10" state="head" />
+    <field y="7" x="10" state="head" />
+    <field y="1" x="11" state="conductor" />
+    <field y="7" x="11" state="conductor" />
+    <field y="1" x="12" state="conductor" />
+    <field y="7" x="12" state="conductor" />
+    <field y="1" x="13" state="conductor" />
+    <field y="7" x="13" state="conductor" />
+    <field y="1" x="14" state="conductor" />
+    <field y="3" x="14" state="head" />
+    <field y="4" x="14" state="conductor" />
+    <field y="5" x="14" state="conductor" />
+    <field y="7" x="14" state="conductor" />
+    <field y="2" x="15" state="tail" />
+    <field y="3" x="15" state="head" />
+    <field y="5" x="15" state="conductor" />
+    <field y="6" x="15" state="conductor" />
+    <field y="3" x="16" state="head" />
+    <field y="5" x="16" state="conductor" />
+    <field y="3" x="17" state="conductor" />
+    <field y="4" x="17" state="conductor" />
+    <field y="5" x="17" state="conductor" />
+    <field y="4" x="18" state="conductor" />
+    <field y="4" x="19" state="conductor" />
+    <field y="4" x="20" state="conductor" />
+    <field y="4" x="21" state="tail" />
+  </fields>
+</scope>

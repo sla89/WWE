@@ -17,6 +17,6 @@ public class ToolboxInitializer extends AbstractPreferenceInitializer {
 		// store.setDefault("PATH",
 		// "C:\\Users\\Administrator\\git\\WWE\\WWE\\toolbar");
 
-		store.setDefault("PATH", Platform.getInstallLocation().getURL().getPath() + "/toolbar");
+		store.setDefault("PATH", Platform.getInstallLocation().getURL().getPath() + "toolbar");
 	}
 }
