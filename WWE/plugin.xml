@@ -205,7 +205,7 @@
       <command
             defaultHandler="wwe.handler.scope.PlayHandler"
             id="WWE.PlayCmd"
-            name="%command.name">
+            name="command.name">
       </command>
       <command
             defaultHandler="wwe.handler.scope.PauseHandler"
