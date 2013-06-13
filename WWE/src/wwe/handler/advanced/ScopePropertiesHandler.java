@@ -8,9 +8,11 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.internal.EditorReference;
 import org.eclipse.ui.part.WorkbenchPart;
 
 import wwe.dialog.CreateScopeDialog;
@@ -37,8 +39,21 @@ public class ScopePropertiesHandler extends AbstractHandler implements IHandler 
 			}
 
 			scope.setName(dialog.getName());
-			scope.setSize(dialog.getWidth(), dialog.getHeight());
-
+			try {
+				scope.setSize(dialog.getWidth(), dialog.getHeight());
+			} catch (Exception ex) {
+				MessageDialog dlg = new MessageDialog(new Shell(),
+						"You lose things!", null, "Do you want that?",
+						MessageDialog.ERROR, new String[] { "Yes", "No" }, 0);
+				if (dlg.open() == 0) {
+					try {
+						scope.setSize(dialog.getWidth(), dialog.getHeight(),
+								false);
+					} catch (Exception e) {
+					}
+				}
+			}
+			editor.getCanvas().pack();
 			Method method = WorkbenchPart.class.getDeclaredMethod(
 					"setPartName", String.class);
 			method.setAccessible(true);

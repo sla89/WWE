@@ -65,10 +65,12 @@ public interface ISimulationScope {
 
 	Rectangle getRect();
 
-	void setSize(int width, int height);
+	void setSize(int width, int height) throws Exception;
 
 	void removeAll();
 
 	void remove(int x, int y);
+
+	void setSize(int width, int height, boolean check) throws Exception;
 
 }

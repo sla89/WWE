@@ -77,28 +77,6 @@ public class SimulationScope extends AbstractScope {
 	}
 
 	@Override
-	public Rectangle getMinRectangle() {
-		Rectangle p = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE,
-				Integer.MIN_VALUE, Integer.MIN_VALUE);
-		for (int x = 0; x < this.getWidth(); x++) {
-			for (int y = 0; y < this.getHeight(); y++) {
-				if (fieldExists(x, y)
-						&& !getField(x, y).getState().equals(FieldState.none)) {
-					if (p.x > x)
-						p.x = x;
-					if (p.y > y)
-						p.y = y;
-					if (p.width < x + 1)
-						p.width = x + 1;
-					if (p.height < y + 1)
-						p.height = y + 1;
-				}
-			}
-		}
-		return p;
-	}
-
-	@Override
 	public Rectangle getRect() {
 		return new Rectangle(0, 0, getWidth(), getHeight());
 	}

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
+import org.eclipse.swt.graphics.Rectangle;
+
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener.Type;
@@ -32,8 +34,21 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	}
 
 	@Override
-	public void setSize(int width, int height) {
+	public void setSize(int width, int height) throws Exception {
+		setSize(width, height, true);
+	}
+
+	@Override
+	public void setSize(int width, int height, boolean check) throws Exception {
 		if (this.getSimulationState().equals(SimulationState.stopped)) {
+
+			if (check) {
+				Rectangle min = getMinRectangle();
+				if (min.width + min.x > width && min.height + min.y > height) {
+					throw new Exception();
+				}
+			}
+
 			this.removeAllStepListener();
 			this.removeAllStateListener();
 
@@ -63,6 +78,28 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 			this.setFields(newFields, field_list);
 			this.onPropertyChanged("size", oldSize, newSize);
 		}
+	}
+
+	@Override
+	public Rectangle getMinRectangle() {
+		Rectangle p = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE,
+				Integer.MIN_VALUE, Integer.MIN_VALUE);
+		for (int x = 0; x < this.getWidth(); x++) {
+			for (int y = 0; y < this.getHeight(); y++) {
+				if (fieldExists(x, y)
+						&& !getField(x, y).getState().equals(FieldState.none)) {
+					if (p.x > x)
+						p.x = x;
+					if (p.y > y)
+						p.y = y;
+					if (p.width < x + 1)
+						p.width = x + 1;
+					if (p.height < y + 1)
+						p.height = y + 1;
+				}
+			}
+		}
+		return p;
 	}
 
 	@Override

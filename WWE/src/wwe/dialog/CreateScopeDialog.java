@@ -60,8 +60,18 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		// layout.horizontalAlignment = GridData.FILL;
 		parent.setLayout(layout);
 
-		// The text fields will grow with the size of the dialog
+		Label label3 = new Label(parent, SWT.NONE);
+		label3.setText("Name:");
+		// You should not re-use GridData
 		GridData gridData = new GridData();
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.horizontalAlignment = GridData.FILL;
+		nameText = new Text(parent, SWT.BORDER);
+		nameText.setText(this.name);
+		nameText.setLayoutData(gridData);
+		
+		// The text fields will grow with the size of the dialog
+		 gridData = new GridData();
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.horizontalAlignment = GridData.FILL;
 
@@ -82,15 +92,6 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		heightText.setText(this.height + "");
 		heightText.setLayoutData(gridData);
 
-		Label label3 = new Label(parent, SWT.NONE);
-		label3.setText("Name:");
-		// You should not re-use GridData
-		gridData = new GridData();
-		gridData.grabExcessHorizontalSpace = true;
-		gridData.horizontalAlignment = GridData.FILL;
-		nameText = new Text(parent, SWT.BORDER);
-		nameText.setText(this.name);
-		nameText.setLayoutData(gridData);
 		return parent;
 	}
 

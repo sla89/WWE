@@ -7,6 +7,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
@@ -19,6 +20,7 @@ public class ScopeEditor extends EditorPart {
 	public static final String ID = "WWE.scope.ScopeEditor";
 	private ISimulationScope scope;
 	private ScopeEditorInput input;
+	private ScopeCanvas canvas;
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input)
@@ -48,7 +50,7 @@ public class ScopeEditor extends EditorPart {
 		Composite scrollContent = new Composite(scroll, SWT.NONE);
 		scrollContent.setLayout(new GridLayout(scope.getWidth(), false));
 
-		final ScopeCanvas canvas = new ScopeCanvas(scrollContent, 1, scope);
+		canvas = new ScopeCanvas(scrollContent, 1, scope);
 
 		scroll.getVerticalBar().addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -101,6 +103,10 @@ public class ScopeEditor extends EditorPart {
 
 	@Override
 	public void setFocus() {
+	}
+
+	public Control getCanvas() {
+		return this.canvas;
 	}
 
 }
