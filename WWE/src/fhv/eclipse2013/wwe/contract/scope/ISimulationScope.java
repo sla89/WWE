@@ -69,4 +69,6 @@ public interface ISimulationScope {
 
 	void removeAll();
 
+	void remove(int x, int y);
+
 }

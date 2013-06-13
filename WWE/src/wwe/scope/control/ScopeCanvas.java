@@ -35,7 +35,7 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 		IHaveScope {
 
 	// TODO Field removed Event
-	
+
 	private ISimulationScope scope;
 
 	public ScopeCanvas(Composite parent, int style, ISimulationScope scope) {
@@ -244,7 +244,6 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -256,13 +255,45 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 
 		int x = e.x / wx;
 		int y = e.y / wy;
-
-		scope.click(x, y);
+		if (e.button == 1) {
+			scope.click(x, y);
+		} else if (e.button == 3) {
+			scope.remove(x, y);
+		}
 	}
 
 	@Override
 	public void mouseUp(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void handleFieldDeleted(final int x, final int y, IField field) {
+		field.removePropertyChangeListener(this);
+		getDisplay().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				IPreferenceStore store = Activator.getDefault()
+						.getPreferenceStore();
+				int wx = store.getInt("block.width");
+				int wy = store.getInt("block.height");
+
+				int mx = 1;
+				int my = 1;
+				// if (x < 0)
+				// x = 0;
+				// if (y < 0)
+				// y = 0;
+				// if (x + 3 >= scope.getWidth())
+				// mx = 2;
+				// if (y + 3 >= scope.getHeight())
+				// my = 2;
+
+				int cx = x * wx;
+				int cy = y * wy;
+				redraw(cx, cy, wx * mx, wy * my, false);
+			}
+		});
 	}
 }

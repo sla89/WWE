@@ -10,11 +10,18 @@ public class FieldAddedSupport {
 
 	private List<IFieldAddedEventListener> fieldAddedListener = new ArrayList<>();
 
-	public void fireStepChanged(int x, int y, IField field) {
+	public void fireFieldAddedChanged(int x, int y, IField field) {
 		for (IFieldAddedEventListener event : this.fieldAddedListener) {
 			event.handleFieldAdded(x, y, field);
 		}
 	}
+
+	public void fireFieldDeletedChanged(int x, int y, IField field) {
+		for (IFieldAddedEventListener event : this.fieldAddedListener) {
+			event.handleFieldAdded(x, y, field);
+		}
+	}
+	
 
 	public void addStepListener(IFieldAddedEventListener l) {
 		this.fieldAddedListener.add(l);

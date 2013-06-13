@@ -43,7 +43,6 @@ public abstract class AbstractScopeEvents implements ISimulationScope {
 		stateChanged.removeAll();
 	}
 
-
 	protected void onStepChanged(Type t) {
 		stepChanged.fireStepChanged(t);
 	}
@@ -53,7 +52,11 @@ public abstract class AbstractScopeEvents implements ISimulationScope {
 	}
 
 	protected void onFieldAdded(int x, int y, IField f) {
-		fieldAdded.fireStepChanged(x, y, f);
+		fieldAdded.fireFieldAddedChanged(x, y, f);
+	}
+
+	protected void onFieldDeleted(int x, int y, IField f) {
+		fieldAdded.fireFieldDeletedChanged(x, y, f);
 	}
 
 	@Override

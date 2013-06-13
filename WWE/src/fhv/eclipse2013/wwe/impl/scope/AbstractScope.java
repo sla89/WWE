@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener.Type;
+import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.state.SimulationState;
 
 public abstract class AbstractScope extends AbstractScopeEvents {
@@ -35,6 +36,15 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 		if (this.getSimulationState().equals(SimulationState.stopped)) {
 			this.removeAllStepListener();
 			this.removeAllStateListener();
+
+			for (int x = 0; x < getWidth(); x++) {
+				for (int y = 0; y < getHeight(); y++) {
+					if (fieldExists(x, y)) {
+						onFieldDeleted(x, y, getField(x, y));
+					}
+				}
+			}
+
 			IField[][] newFields = new IField[height][width];
 			List<IField> field_list = new ArrayList<>();
 			for (int x = 0; x < width; x++) {
@@ -58,10 +68,22 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	@Override
 	public void removeAll() {
 		if (this.getSimulationState().equals(SimulationState.stopped)) {
-			this.removeAllStepListener();
-			this.removeAllStateListener();
-			IField[][] newFields = new IField[getHeight()][getWidth()];
-			this.setFields(newFields, new ArrayList<IField>());
+			for (int x = 0; x < getWidth(); x++) {
+				for (int y = 0; y < getHeight(); y++) {
+					if (fieldExists(x, y)) {
+						getField(x, y).setState(FieldState.none);
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void remove(int x, int y) {
+		if (this.getSimulationState().equals(SimulationState.stopped)) {
+			if (fieldExists(x, y)) {
+				getField(x, y).setState(FieldState.none);
+			}
 		}
 	}
 

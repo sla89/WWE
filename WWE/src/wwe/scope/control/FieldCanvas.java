@@ -173,4 +173,10 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener,
 			e.gc.drawString(coord.x + "," + coord.y, 2, 2);
 		}
 	}
+
+	@Override
+	public void handleFieldDeleted(int x, int y, IField field) {
+		// TODO Auto-generated method stub
+		
+	}
 }
