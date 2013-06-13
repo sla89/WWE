@@ -18,11 +18,12 @@ import org.jdom2.output.XMLOutputter;
 
 import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.ISimulationFactory;
+import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 import fhv.eclipse2013.wwe.impl.field.WireWorldField;
 
-public class SimulationScope extends AbstractScope {
+public class SimulationScope extends AbstractScope implements ISimulationScope {
 
 	public static SimulationScope load(String filename,
 			ISimulationFactory factory) {

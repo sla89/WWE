@@ -5,21 +5,21 @@ import java.awt.Point;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 
+import fhv.eclipse2013.wwe.contract.IField;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.impl.scope.SimulationScope;
 
-public class WireWorldField extends FieldBase {
+public class WireWorldField extends FieldBase implements IField {
 
 	public WireWorldField(ISimulationScope scope, Point c) {
 		super(scope);
-		this.setNeighbours(new FieldNeighbours(scope, this, c));
+		this.setNeighbours(new MooreNeighbours(scope, this, c));
 	}
 
 	public WireWorldField(SimulationScope scope, FieldState state, Point c) {
-		super(scope);
+		this(scope, c);
 		this.setState(state);
-		this.setNeighbours(new FieldNeighbours(scope, this, c));
 	}
 
 	@Override

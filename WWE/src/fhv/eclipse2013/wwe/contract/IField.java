@@ -7,7 +7,6 @@ import org.jdom2.Element;
 
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
-import fhv.eclipse2013.wwe.impl.field.FieldNeighbours;
 
 public interface IField {
 	FieldState getState();
@@ -16,7 +15,7 @@ public interface IField {
 
 	void setLock(boolean lock);
 
-	FieldNeighbours getNeighbours();
+	IFieldNeighbours getNeighbours();
 
 	void prepareNextState();
 
