@@ -10,7 +10,7 @@ import wwe.Activator;
 public class ToolbarPreferencePage extends FieldEditorPreferencePage implements
 		IWorkbenchPreferencePage {
 
-	public static final String ID = Messages.ToolbarPreferencePage_0;
+	public static final String ID = "WWE.preferences.toolbar";
 
 	public ToolbarPreferencePage(String title) {
 		super(title, GRID);
