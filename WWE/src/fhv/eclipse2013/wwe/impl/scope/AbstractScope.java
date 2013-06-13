@@ -32,25 +32,37 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 
 	@Override
 	public void setSize(int width, int height) {
-		this.removeAllStepListener();
-		this.removeAllStateListener();
-		IField[][] newFields = new IField[height][width];
-		List<IField> field_list = new ArrayList<>();
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				if (fieldExists(x, y)) {
-					IField field = getField(x, y);
-					newFields[y][x] = field;
-					field_list.add(field);
-					field.init(this);
+		if (this.getSimulationState().equals(SimulationState.stopped)) {
+			this.removeAllStepListener();
+			this.removeAllStateListener();
+			IField[][] newFields = new IField[height][width];
+			List<IField> field_list = new ArrayList<>();
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					if (fieldExists(x, y)) {
+						IField field = getField(x, y);
+						newFields[y][x] = field;
+						field_list.add(field);
+						field.init(this);
+					}
 				}
 			}
+			Dimension newSize = new Dimension(width, height);
+			Dimension oldSize = getSize();
+			this.size = newSize;
+			this.setFields(newFields, field_list);
+			this.onPropertyChanged("size", oldSize, newSize);
 		}
-		Dimension newSize = new Dimension(width, height);
-		Dimension oldSize = getSize();
-		this.size = newSize;
-		this.setFields(newFields, field_list);
-		this.onPropertyChanged("size", oldSize, newSize);
+	}
+
+	@Override
+	public void removeAll() {
+		if (this.getSimulationState().equals(SimulationState.stopped)) {
+			this.removeAllStepListener();
+			this.removeAllStateListener();
+			IField[][] newFields = new IField[getHeight()][getWidth()];
+			this.setFields(newFields, new ArrayList<IField>());
+		}
 	}
 
 	@Override

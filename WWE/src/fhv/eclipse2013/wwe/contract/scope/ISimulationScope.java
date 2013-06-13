@@ -67,4 +67,6 @@ public interface ISimulationScope {
 
 	void setSize(int width, int height);
 
+	void removeAll();
+
 }

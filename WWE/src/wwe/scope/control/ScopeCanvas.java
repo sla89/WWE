@@ -34,6 +34,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 		PropertyChangeListener, IFieldAddedEventListener, MouseListener,
 		IHaveScope {
 
+	// TODO Field removed Event
+	
 	private ISimulationScope scope;
 
 	public ScopeCanvas(Composite parent, int style, ISimulationScope scope) {
