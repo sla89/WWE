@@ -13,7 +13,6 @@ public class Messages extends NLS {
 	public static String ScopePreferencePage_3;
 	public static String ScopePreferencePage_6;
 	public static String ScopePreferencePage_8;
-	public static String ToolbarPreferencePage_0;
 	public static String ToolbarPreferencePage_1;
 	public static String ToolbarPreferencePage_2;
 	public static String ToolbarPreferencePage_4;
