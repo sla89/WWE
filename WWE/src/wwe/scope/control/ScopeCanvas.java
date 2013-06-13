@@ -58,7 +58,7 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 		this.scope.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
-				if (arg0.getPropertyName().equals("size")) {
+				if (arg0.getPropertyName().equals("size")) { //$NON-NLS-1$
 					redrawComplete();
 				}
 			}
@@ -73,8 +73,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 				Point rect = toDisplay(0, 0);
 				IPreferenceStore store = Activator.getDefault()
 						.getPreferenceStore();
-				int wx = store.getInt("block.width");
-				int wy = store.getInt("block.height");
+				int wx = store.getInt("block.width"); //$NON-NLS-1$
+				int wy = store.getInt("block.height"); //$NON-NLS-1$
 
 				int x = (event.x - rect.x) / wx;
 				int y = (event.y - rect.y) / wy;
@@ -89,11 +89,11 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 					@Override
 					public void propertyChange(
 							org.eclipse.jface.util.PropertyChangeEvent event) {
-						if (event.getProperty().startsWith("color")) {
+						if (event.getProperty().startsWith("color")) { //$NON-NLS-1$
 							redraw();
-						} else if (event.getProperty().equals("showCoordinate")) {
+						} else if (event.getProperty().equals("showCoordinate")) { //$NON-NLS-1$
 							redraw();
-						} else if (event.getProperty().startsWith("block")) {
+						} else if (event.getProperty().startsWith("block")) { //$NON-NLS-1$
 							getParent().pack();
 						}
 					}
@@ -115,8 +115,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 	@Override
 	public void paintControl(PaintEvent e) {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		int wx = store.getInt("block.width");
-		int wy = store.getInt("block.height");
+		int wx = store.getInt("block.width"); //$NON-NLS-1$
+		int wy = store.getInt("block.height"); //$NON-NLS-1$
 		if (!initiated) {
 			paintNotInitiated(e, wx, wy);
 			initiated = true;
@@ -143,8 +143,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 
 				IPreferenceStore store = Activator.getDefault()
 						.getPreferenceStore();
-				if (store.getBoolean("showCoordinate")) {
-					e.gc.drawString(cx + "," + cy, 2, 2);
+				if (store.getBoolean("showCoordinate")) { //$NON-NLS-1$
+					e.gc.drawString(cx + "," + cy, 2, 2); //$NON-NLS-1$
 				}
 			}
 		}
@@ -169,8 +169,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 
 				IPreferenceStore store = Activator.getDefault()
 						.getPreferenceStore();
-				if (store.getBoolean("showCoordinate")) {
-					e.gc.drawString(x + "," + y, 2, 2);
+				if (store.getBoolean("showCoordinate")) { //$NON-NLS-1$
+					e.gc.drawString(x + "," + y, 2, 2); //$NON-NLS-1$
 				}
 			}
 		}
@@ -179,10 +179,10 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 	private RGB getColor(FieldState state) {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 
-		RGB none = PreferenceConverter.getColor(store, "color.none");
-		RGB conductor = PreferenceConverter.getColor(store, "color.conductor");
-		RGB head = PreferenceConverter.getColor(store, "color.head");
-		RGB tail = PreferenceConverter.getColor(store, "color.tail");
+		RGB none = PreferenceConverter.getColor(store, "color.none"); //$NON-NLS-1$
+		RGB conductor = PreferenceConverter.getColor(store, "color.conductor"); //$NON-NLS-1$
+		RGB head = PreferenceConverter.getColor(store, "color.head"); //$NON-NLS-1$
+		RGB tail = PreferenceConverter.getColor(store, "color.tail"); //$NON-NLS-1$
 
 		if (state.equals(FieldState.none)) {
 			return none;
@@ -203,8 +203,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 			public void run() {
 				IPreferenceStore store = Activator.getDefault()
 						.getPreferenceStore();
-				int wx = store.getInt("block.width");
-				int wy = store.getInt("block.height");
+				int wx = store.getInt("block.width"); //$NON-NLS-1$
+				int wy = store.getInt("block.height"); //$NON-NLS-1$
 
 				IField field = (IField) evt.getSource();
 
@@ -237,8 +237,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 	public Point computeSize(int wHint, int hHint, boolean changed) {
 		Point initialSize = super.computeSize(wHint, hHint, changed);
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		initialSize.x = store.getInt("block.width") * getScope().getWidth();
-		initialSize.y = store.getInt("block.height") * getScope().getHeight();
+		initialSize.x = store.getInt("block.width") * getScope().getWidth(); //$NON-NLS-1$
+		initialSize.y = store.getInt("block.height") * getScope().getHeight(); //$NON-NLS-1$
 		return initialSize;
 	}
 
@@ -250,8 +250,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 	@Override
 	public void mouseDown(MouseEvent e) {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		int wx = store.getInt("block.width");
-		int wy = store.getInt("block.height");
+		int wx = store.getInt("block.width"); //$NON-NLS-1$
+		int wy = store.getInt("block.height"); //$NON-NLS-1$
 
 		int x = e.x / wx;
 		int y = e.y / wy;
@@ -276,8 +276,8 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 			public void run() {
 				IPreferenceStore store = Activator.getDefault()
 						.getPreferenceStore();
-				int wx = store.getInt("block.width");
-				int wy = store.getInt("block.height");
+				int wx = store.getInt("block.width"); //$NON-NLS-1$
+				int wy = store.getInt("block.height"); //$NON-NLS-1$
 
 				int mx = 1;
 				int my = 1;

@@ -40,7 +40,7 @@ public class ScopeEditorInput implements IEditorInput {
 
 	@Override
 	public String getToolTipText() {
-		return "Displays a SimulationScope";
+		return Messages.ScopeEditorInput_0;
 	}
 
 	@Override

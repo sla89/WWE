@@ -18,8 +18,8 @@ public class PreferencesHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IPreferencePage page = new ToolbarPreferencePage("Toolbar");
-		IPreferencePage scope = new ScopePreferencePage("Scope");
+		IPreferencePage page = new ToolbarPreferencePage(Messages.PreferencesHandler_0);
+		IPreferencePage scope = new ScopePreferencePage(Messages.PreferencesHandler_1);
 		PreferenceManager mgr = new PreferenceManager();
 		IPreferenceNode node1 = new PreferenceNode(ToolbarPreferencePage.ID,
 				page);
@@ -29,7 +29,7 @@ public class PreferencesHandler extends AbstractHandler implements IHandler {
 		mgr.addToRoot(node2);
 		PreferenceDialog dialog = new PreferenceDialog(new Shell(), mgr);
 		dialog.create();
-		dialog.setMessage("Settings");
+		dialog.setMessage(Messages.PreferencesHandler_2);
 		dialog.open();
 		return null;
 	}

@@ -17,7 +17,7 @@ import wwe.scope.control.ScopeCanvas;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
 public class ScopeEditor extends EditorPart {
-	public static final String ID = "WWE.scope.ScopeEditor";
+	public static final String ID = "WWE.scope.ScopeEditor"; //$NON-NLS-1$
 	private ISimulationScope scope;
 	private ScopeEditorInput input;
 	private ScopeCanvas canvas;
@@ -26,7 +26,7 @@ public class ScopeEditor extends EditorPart {
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
 		if (!(input instanceof ScopeEditorInput)) {
-			throw new RuntimeException("Wrong input");
+			throw new RuntimeException(Messages.ScopeEditor_1);
 		}
 
 		this.input = (ScopeEditorInput) input;

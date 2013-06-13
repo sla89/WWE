@@ -24,14 +24,14 @@ public class SaveAsToolHandler extends AbstractHandler implements IHandler {
 					.getScope();
 
 			String folder = Activator.getDefault().getPreferenceStore()
-					.getString("PATH");
+					.getString("PATH"); //$NON-NLS-1$
 			String xmlFileName = getXmlFileName(scope.getName());
 			String pngFileName = getPngFileName(scope.getName());
 
 			try {
 				ImageCreator.createImage(folder, pngFileName, scope, true);
 			} catch (IOException e1) {
-				pngFileName = "";
+				pngFileName = ""; //$NON-NLS-1$
 				e1.printStackTrace();
 			}
 			try {
@@ -48,16 +48,16 @@ public class SaveAsToolHandler extends AbstractHandler implements IHandler {
 	}
 
 	private String getXmlFileName(String name) {
-		String filename = name.replace(" ", "_") + ".xml";
+		String filename = name.replace(" ", "_") + ".xml"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		filename = filename.toLowerCase();
 		filename = Activator.getDefault().getPreferenceStore()
-				.getString("PATH")
-				+ "\\" + filename;
+				.getString("PATH") //$NON-NLS-1$
+				+ "\\" + filename; //$NON-NLS-1$
 		return filename;
 	}
 
 	private String getPngFileName(String name) {
-		String filename = name.replace(" ", "_") + ".png";
+		String filename = name.replace(" ", "_") + ".png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		filename = filename.toLowerCase();
 		return filename;
 	}

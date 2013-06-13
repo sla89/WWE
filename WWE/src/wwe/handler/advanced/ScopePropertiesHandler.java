@@ -31,7 +31,7 @@ public class ScopePropertiesHandler extends AbstractHandler implements IHandler 
 			ISimulationScope scope = editor.getScope();
 
 			Shell s = new Shell();
-			CreateScopeDialog dialog = new CreateScopeDialog(s, "Save",
+			CreateScopeDialog dialog = new CreateScopeDialog(s, Messages.ScopePropertiesHandler_0,
 					scope.getWidth(), scope.getHeight(), scope.getName());
 			// User pressed cancel
 			if (dialog.open() != Window.OK) {
@@ -43,8 +43,8 @@ public class ScopePropertiesHandler extends AbstractHandler implements IHandler 
 				scope.setSize(dialog.getWidth(), dialog.getHeight());
 			} catch (Exception ex) {
 				MessageDialog dlg = new MessageDialog(new Shell(),
-						"You lose things!", null, "Do you want that?",
-						MessageDialog.ERROR, new String[] { "Yes", "No" }, 0);
+						Messages.ScopePropertiesHandler_1, null, Messages.ScopePropertiesHandler_2,
+						MessageDialog.ERROR, new String[] { Messages.ScopePropertiesHandler_3, Messages.ScopePropertiesHandler_4 }, 0);
 				if (dlg.open() == 0) {
 					try {
 						scope.setSize(dialog.getWidth(), dialog.getHeight(),
@@ -55,7 +55,7 @@ public class ScopePropertiesHandler extends AbstractHandler implements IHandler 
 			}
 			editor.getCanvas().pack();
 			Method method = WorkbenchPart.class.getDeclaredMethod(
-					"setPartName", String.class);
+					Messages.ScopePropertiesHandler_5, String.class);
 			method.setAccessible(true);
 			method.invoke(part, scope.getName());
 		} catch (NotBoundException ex) {

@@ -67,16 +67,16 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener,
 					@Override
 					public void propertyChange(
 							org.eclipse.jface.util.PropertyChangeEvent event) {
-						if (event.getProperty().startsWith("color")) {
+						if (event.getProperty().startsWith("color")) { //$NON-NLS-1$
 							if (field != null) {
 								setColor(field.getState());
 							} else {
 								setColor(FieldState.none);
 							}
 							redraw();
-						} else if (event.getProperty().equals("showCoordinate")) {
+						} else if (event.getProperty().equals("showCoordinate")) { //$NON-NLS-1$
 							redraw();
-						} else if (event.getProperty().startsWith("block")) {
+						} else if (event.getProperty().startsWith("block")) { //$NON-NLS-1$
 							getParent().pack();
 						}
 					}
@@ -113,10 +113,10 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener,
 	private void setColor(FieldState state) {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 
-		RGB none = PreferenceConverter.getColor(store, "color.none");
-		RGB conductor = PreferenceConverter.getColor(store, "color.conductor");
-		RGB head = PreferenceConverter.getColor(store, "color.head");
-		RGB tail = PreferenceConverter.getColor(store, "color.tail");
+		RGB none = PreferenceConverter.getColor(store, "color.none"); //$NON-NLS-1$
+		RGB conductor = PreferenceConverter.getColor(store, "color.conductor"); //$NON-NLS-1$
+		RGB head = PreferenceConverter.getColor(store, "color.head"); //$NON-NLS-1$
+		RGB tail = PreferenceConverter.getColor(store, "color.tail"); //$NON-NLS-1$
 
 		if (state.equals(FieldState.none)) {
 			this.bg = none;
@@ -137,7 +137,7 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener,
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("state")) {
+		if (evt.getPropertyName().equals("state")) { //$NON-NLS-1$
 			FieldState state = (FieldState) evt.getNewValue();
 			this.setColor(state);
 		}
@@ -149,8 +149,8 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener,
 		org.eclipse.swt.graphics.Point initialSize = super.computeSize(wHint,
 				hHint, changed);
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		initialSize.x = store.getInt("block.width");
-		initialSize.y = store.getInt("block.height");
+		initialSize.x = store.getInt("block.width"); //$NON-NLS-1$
+		initialSize.y = store.getInt("block.height"); //$NON-NLS-1$
 		return initialSize;
 	}
 
@@ -169,8 +169,8 @@ public class FieldCanvas extends Canvas implements PropertyChangeListener,
 		e.gc.drawRectangle(0, 0, e.width, e.height);
 
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		if (store.getBoolean("showCoordinate")) {
-			e.gc.drawString(coord.x + "," + coord.y, 2, 2);
+		if (store.getBoolean("showCoordinate")) { //$NON-NLS-1$
+			e.gc.drawString(coord.x + "," + coord.y, 2, 2); //$NON-NLS-1$
 		}
 	}
 

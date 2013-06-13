@@ -49,7 +49,7 @@ public class EditorHandler {
 				return null;
 			}
 		} else {
-			throw new NotBoundException("No Editor exists");
+			throw new NotBoundException(Messages.EditorHandler_0);
 		}
 	}
 }

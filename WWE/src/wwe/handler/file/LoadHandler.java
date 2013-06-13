@@ -19,9 +19,9 @@ public class LoadHandler extends AbstractHandler implements IHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 	Shell	s = new Shell();
 		FileDialog fileDialog = new FileDialog(s, SWT.OPEN);
-		fileDialog.setText("Load");
-		fileDialog.setFilterPath("C:/");
-		String[] filterExt = { "*.xml", };
+		fileDialog.setText(Messages.LoadHandler_0);
+		fileDialog.setFilterPath("C:/"); //$NON-NLS-1$
+		String[] filterExt = { "*.xml", }; //$NON-NLS-1$
 		fileDialog.setFilterExtensions(filterExt);
 
 		String fileName = fileDialog.open();

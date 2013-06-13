@@ -28,8 +28,8 @@ public class CreateScopeDialog extends TitleAreaDialog {
 	private String createButtonText;
 
 	public CreateScopeDialog(Shell parentShell) {
-		this(parentShell, "Create", SimulationScopeHandler.WORLD_SIZE,
-				SimulationScopeHandler.WORLD_SIZE, "");
+		this(parentShell, Messages.CreateScopeDialog_0, SimulationScopeHandler.WORLD_SIZE,
+				SimulationScopeHandler.WORLD_SIZE, ""); //$NON-NLS-1$
 	}
 
 	public CreateScopeDialog(Shell parentShell, String createButtonText, int w,
@@ -45,10 +45,10 @@ public class CreateScopeDialog extends TitleAreaDialog {
 	public void create() {
 		super.create();
 		// Set the title
-		setTitle("SimulationScope");
+		setTitle(Messages.CreateScopeDialog_2);
 		// Set the message
 		setMessage(
-				"Select Size of your SimulationScope. Bigger than 50x50 needs a very good Computer.",
+				Messages.CreateScopeDialog_3,
 				IMessageProvider.INFORMATION);
 
 	}
@@ -61,7 +61,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		parent.setLayout(layout);
 
 		Label label3 = new Label(parent, SWT.NONE);
-		label3.setText("Name:");
+		label3.setText(Messages.CreateScopeDialog_4);
 		// You should not re-use GridData
 		GridData gridData = new GridData();
 		gridData.grabExcessHorizontalSpace = true;
@@ -76,20 +76,20 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		gridData.horizontalAlignment = GridData.FILL;
 
 		Label label1 = new Label(parent, SWT.NONE);
-		label1.setText("Width:");
+		label1.setText(Messages.CreateScopeDialog_5);
 
 		widthText = new Text(parent, SWT.BORDER);
-		widthText.setText(this.width + "");
+		widthText.setText(this.width + ""); //$NON-NLS-1$
 		widthText.setLayoutData(gridData);
 
 		Label label2 = new Label(parent, SWT.NONE);
-		label2.setText("Height:");
+		label2.setText(Messages.CreateScopeDialog_7);
 		// You should not re-use GridData
 		gridData = new GridData();
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.horizontalAlignment = GridData.FILL;
 		heightText = new Text(parent, SWT.BORDER);
-		heightText.setText(this.height + "");
+		heightText.setText(this.height + ""); //$NON-NLS-1$
 		heightText.setLayoutData(gridData);
 
 		return parent;
@@ -111,7 +111,7 @@ public class CreateScopeDialog extends TitleAreaDialog {
 		// Add a SelectionListener
 
 		// Create Cancel button
-		Button cancelButton = createButton(parent, CANCEL, "Cancel", false);
+		Button cancelButton = createButton(parent, CANCEL, Messages.CreateScopeDialog_9, false);
 		// Add a SelectionListener
 		cancelButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -149,20 +149,20 @@ public class CreateScopeDialog extends TitleAreaDialog {
 	private boolean isValidInput() {
 		boolean valid = true;
 		if (widthText.getText().length() == 0) {
-			setErrorMessage("Please maintain width");
+			setErrorMessage(Messages.CreateScopeDialog_10);
 			valid = false;
 		}
 		if (nameText.getText().length() == 0) {
-			setErrorMessage("Please maintain name");
+			setErrorMessage(Messages.CreateScopeDialog_11);
 			valid = false;
 		}
 		if (heightText.getText().length() == 0) {
-			setErrorMessage("Please maintain height");
+			setErrorMessage(Messages.CreateScopeDialog_12);
 			valid = false;
 		}
 		if (!tryParseInt(widthText.getText())
 				&& !tryParseInt(heightText.getText())) {
-			setErrorMessage("Please maintain Integer values");
+			setErrorMessage(Messages.CreateScopeDialog_13);
 			valid = false;
 		}
 		return valid;

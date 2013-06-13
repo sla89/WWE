@@ -10,19 +10,19 @@ import wwe.Activator;
 public class ToolbarPreferencePage extends FieldEditorPreferencePage implements
 		IWorkbenchPreferencePage {
 
-	public static final String ID = "WWE.preferences.toolbar";
+	public static final String ID = Messages.ToolbarPreferencePage_0;
 
 	public ToolbarPreferencePage(String title) {
 		super(title, GRID);
-		setTitle("Toolbar");
+		setTitle(Messages.ToolbarPreferencePage_1);
 
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
-		setDescription("Toolbar Preferences");
+		setDescription(Messages.ToolbarPreferencePage_2);
 	}
 
 	@Override
 	protected void createFieldEditors() {
-		addField(new DirectoryFieldEditor("PATH", "&Directory preference:",
+		addField(new DirectoryFieldEditor("PATH", Messages.ToolbarPreferencePage_4, //$NON-NLS-1$
 				getFieldEditorParent()));
 	}
 

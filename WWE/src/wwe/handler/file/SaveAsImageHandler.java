@@ -22,9 +22,9 @@ public class SaveAsImageHandler extends AbstractHandler implements IHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		Shell s = new Shell();
 		FileDialog fileDialog = new FileDialog(s, SWT.SAVE);
-		fileDialog.setText("Save");
-		fileDialog.setFilterPath("C:/");
-		String[] filterExt = { "*.png", };
+		fileDialog.setText(Messages.SaveAsImageHandler_0);
+		fileDialog.setFilterPath("C:/"); //$NON-NLS-1$
+		String[] filterExt = { "*.png", }; //$NON-NLS-1$
 		fileDialog.setFilterExtensions(filterExt);
 
 		String fileName = fileDialog.open();
@@ -33,7 +33,7 @@ public class SaveAsImageHandler extends AbstractHandler implements IHandler {
 			try {
 				ImageCreator.createImage(fileName, editor.getScope(), 20);
 				Runtime.getRuntime().exec(
-						new String[] { "cmd.exe", "/C", fileName });
+						new String[] { "cmd.exe", "/C", fileName }); //$NON-NLS-1$ //$NON-NLS-2$
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

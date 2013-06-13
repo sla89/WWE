@@ -12,37 +12,37 @@ import wwe.Activator;
 public class ScopePreferencePage extends FieldEditorPreferencePage implements
 		IWorkbenchPreferencePage {
 
-	public static final String ID = "WWE.preferences.scope";
+	public static final String ID = "WWE.preferences.scope"; //$NON-NLS-1$
 
 	public ScopePreferencePage(String title) {
 		super(title, GRID);
-		setTitle("Scope");
+		setTitle(Messages.ScopePreferencePage_1);
 
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
-		setDescription("Scope Preferences");
+		setDescription(Messages.ScopePreferencePage_2);
 	}
 
 	@Override
 	protected void createFieldEditors() {
-		addField(new ColorFieldEditor("color.none", "&None Field",
+		addField(new ColorFieldEditor("color.none", Messages.ScopePreferencePage_0, //$NON-NLS-1$
 				getFieldEditorParent()));
 
-		addField(new ColorFieldEditor("color.conductor", "&Conductor Field",
+		addField(new ColorFieldEditor("color.conductor", Messages.ScopePreferencePage_6, //$NON-NLS-1$
 				getFieldEditorParent()));
 
-		addField(new ColorFieldEditor("color.head", "&Head Field",
+		addField(new ColorFieldEditor("color.head", Messages.ScopePreferencePage_8, //$NON-NLS-1$
 				getFieldEditorParent()));
 
-		addField(new ColorFieldEditor("color.tail", "&Tail Field",
+		addField(new ColorFieldEditor("color.tail", Messages.ScopePreferencePage_10, //$NON-NLS-1$
 				getFieldEditorParent()));
 
-		addField(new BooleanFieldEditor("showCoordinate", "&Show Coordinate",
+		addField(new BooleanFieldEditor("showCoordinate", Messages.ScopePreferencePage_12, //$NON-NLS-1$
 				getFieldEditorParent()));
 
-		addField(new IntegerFieldEditor("block.width", "Block &width",
+		addField(new IntegerFieldEditor("block.width", Messages.ScopePreferencePage_3, //$NON-NLS-1$
 				getFieldEditorParent()));
 
-		addField(new IntegerFieldEditor("block.height", "Block hei&ght",
+		addField(new IntegerFieldEditor("block.height", Messages.ScopePreferencePage_16, //$NON-NLS-1$
 				getFieldEditorParent()));
 	}
 
