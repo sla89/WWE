@@ -54,8 +54,7 @@ public class ScopePropertiesHandler extends AbstractHandler implements IHandler 
 				}
 			}
 			editor.getCanvas().pack();
-			Method method = WorkbenchPart.class.getDeclaredMethod(
-					Messages.ScopePropertiesHandler_5, String.class);
+			Method method = WorkbenchPart.class.getDeclaredMethod("setPartName", String.class);
 			method.setAccessible(true);
 			method.invoke(part, scope.getName());
 		} catch (NotBoundException ex) {
