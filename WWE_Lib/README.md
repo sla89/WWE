@@ -1,4 +1,0 @@
-WWE
-===
-
-Eclipse Project Wireworld
