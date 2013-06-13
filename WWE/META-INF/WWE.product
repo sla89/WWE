@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="WireWorld Eclipse" uid="wwe" id="WWE.product" application="WWE.application" version="1.0" useFeatures="false" includeLaunchers="true">
+<product name="WireWorld Eclipse" uid="wwe" id="WWE.product" application="WWE.application" version="1.01" useFeatures="false" includeLaunchers="true">
+
 
    <configIni use="default">
    </configIni>
@@ -12,6 +13,8 @@
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
+   <windowImages/>
+
    <launcher>
       <solaris/>
       <win useIco="false">
@@ -19,8 +22,10 @@
       </win>
    </launcher>
 
+
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="WWE"/>
