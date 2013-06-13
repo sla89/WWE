@@ -263,5 +263,17 @@
             class="wwe.preferences.ScopeInitializer">
       </initializer>
    </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="WWE.application"
+            name="WireWorld Eclipse">
+         <property
+               name="appName"
+               value="WireWorld Eclipse">
+         </property>
+      </product>
+   </extension>
 
 </plugin>
