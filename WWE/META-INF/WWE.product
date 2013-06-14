@@ -15,6 +15,8 @@
 
    <windowImages/>
 
+   <splash
+      startupProgressRect="5,275,445,15" />
    <launcher>
       <solaris/>
       <win useIco="false">
@@ -98,7 +100,6 @@
 
    <configurations>
       <plugin id="WWE" autoStart="false" startLevel="2" />
-      <plugin id="WWE_Lib" autoStart="false" startLevel="1" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />
