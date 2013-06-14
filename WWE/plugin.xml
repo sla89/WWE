@@ -271,12 +271,12 @@
             name="Zoom In Command">
       </command>
       <command
-            defaultHandler="ZoomOutHandler"
+            defaultHandler="wwe.handler.scope.ZoomOutHandler"
             id="WWE.ZoomOutCmd"
             name="Zoom Out Command">
       </command>
       <command
-            defaultHandler="RepaintHandler"
+            defaultHandler="wwe.handler.scope.RepaintHandler"
             id="WWE.RepaintCmd"
             name="Repaint Command">
       </command>
