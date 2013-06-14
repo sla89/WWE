@@ -15,7 +15,8 @@
 
    <windowImages/>
 
-
+   <splash
+      startupProgressRect="5,275,445,15" />
    <launcher>
       <solaris/>
       <win useIco="false">
@@ -26,6 +27,7 @@
 
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="WWE"/>
