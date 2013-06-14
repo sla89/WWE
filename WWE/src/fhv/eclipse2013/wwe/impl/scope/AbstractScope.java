@@ -22,7 +22,7 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 		}
 	}
 
-	private ScopeTimer timer = new ScopeTimer();
+	private ScopeTimer timer = new ScopeTimer(100);
 	private ISimulationFactory factory;
 
 	private Dimension size;
@@ -31,6 +31,11 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	@Override
 	public Dimension getSize() {
 		return size;
+	}
+
+	@Override
+	public void setTimerIntervall(int intervall) {
+		this.timer.setIntervall(intervall, new Task());
 	}
 
 	@Override
@@ -199,8 +204,8 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	public IField getField(int x, int y) {
 		if ((x >= 0) && (x < this.getWidth()) && (y >= 0)
 				&& (y < this.getHeight())) {
-			if(fields == null){
-				this.fields=new IField[this.getHeight()][];
+			if (fields == null) {
+				this.fields = new IField[this.getHeight()][];
 			}
 			if (this.fields[y] == null) {
 				this.fields[y] = new IField[this.getWidth()];

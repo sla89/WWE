@@ -6,11 +6,16 @@ import java.util.TimerTask;
 public class ScopeTimer {
 
 	Timer t;
+	private int intervall;
+
+	public ScopeTimer(int intervall) {
+		this.intervall = intervall;
+	}
 
 	public boolean startTimer(TimerTask t) {
 		if (this.t == null) {
 			this.t = new Timer();
-			this.t.schedule(t, 0, 100);
+			this.t.schedule(t, 0, this.intervall);
 		} else {
 			this.stopTimer();
 			return true;
@@ -22,6 +27,14 @@ public class ScopeTimer {
 		if (this.t != null) {
 			this.t.cancel();
 			this.t = null;
+		}
+	}
+
+	public void setIntervall(int intervall, TimerTask t) {
+		this.intervall = intervall;
+		if (t != null) {
+			startTimer(t);
+			startTimer(t);
 		}
 	}
 }

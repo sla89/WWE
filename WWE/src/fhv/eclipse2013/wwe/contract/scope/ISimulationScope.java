@@ -73,4 +73,6 @@ public interface ISimulationScope {
 
 	void setSize(int width, int height, boolean check) throws Exception;
 
+	void setTimerIntervall(int intervall);
+
 }
