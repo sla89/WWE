@@ -153,20 +153,23 @@
             <command
                   commandId="WWE.ZoomInCmd"
                   icon="icons/plus.gif"
-                  label="Zoom In"
-                  style="push">
+                  label="%command.label.13"
+                  style="push"
+                  tooltip="%command.tooltip.5">
             </command>
             <command
                   commandId="WWE.ZoomOutCmd"
                   icon="icons/minus.gif"
-                  label="Zoom Out"
-                  style="push">
+                  label="%command.label.14"
+                  style="push"
+                  tooltip="%command.tooltip.6">
             </command>
             <command
                   commandId="WWE.RepaintCmd"
                   icon="icons/pencil_edit.gif"
-                  label="Repaint"
-                  style="push">
+                  label="%command.label.15"
+                  style="push"
+                  tooltip="%command.tooltip.7">
             </command>
          </toolbar>
       </menuContribution>
