@@ -1,5 +1,7 @@
 package wwe.handler.scope;
 
+import java.rmi.NotBoundException;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -7,6 +9,8 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import wwe.Activator;
+import wwe.scope.ScopeEditor;
+import wwe.util.EditorHandler;
 
 public class ZoomInHandler extends AbstractHandler implements IHandler {
 
@@ -24,4 +28,14 @@ public class ZoomInHandler extends AbstractHandler implements IHandler {
 		return null;
 	}
 
+	@Override
+	public boolean isEnabled() {
+		try {
+			ScopeEditor editor = EditorHandler.getCurrentEditor();
+			return editor != null;
+		} catch (NotBoundException ex) {
+		}
+
+		return false;
+	}
 }
