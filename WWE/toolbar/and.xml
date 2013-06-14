@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scope name="AND">
-  <width>8</width>
-  <height>6</height>
+  <width>16</width>
+  <height>15</height>
   <image>and.png</image>
   <fields>
-    <field y="1" x="0" state="conductor" />
-    <field y="2" x="0" state="conductor" />
-    <field y="3" x="0" state="conductor" />
-    <field y="4" x="0" state="conductor" />
+    <field y="0" x="0" state="conductor" />
+    <field y="8" x="0" state="conductor" />
     <field y="0" x="1" state="conductor" />
-    <field y="1" x="1" state="conductor" />
     <field y="4" x="1" state="conductor" />
-    <field y="5" x="1" state="conductor" />
+    <field y="8" x="1" state="conductor" />
     <field y="1" x="2" state="conductor" />
     <field y="2" x="2" state="conductor" />
     <field y="3" x="2" state="conductor" />
     <field y="4" x="2" state="conductor" />
-    <field y="2" x="3" state="conductor" />
-    <field y="1" x="4" state="conductor" />
-    <field y="2" x="4" state="conductor" />
-    <field y="2" x="5" state="conductor" />
-    <field y="2" x="6" state="conductor" />
+    <field y="5" x="2" state="conductor" />
+    <field y="6" x="2" state="conductor" />
+    <field y="8" x="2" state="conductor" />
+    <field y="4" x="3" state="conductor" />
+    <field y="7" x="3" state="conductor" />
+    <field y="3" x="4" state="conductor" />
+    <field y="4" x="4" state="conductor" />
+    <field y="5" x="4" state="conductor" />
+    <field y="7" x="4" state="conductor" />
+    <field y="4" x="5" state="conductor" />
+    <field y="7" x="5" state="conductor" />
+    <field y="3" x="6" state="conductor" />
+    <field y="5" x="6" state="conductor" />
+    <field y="6" x="6" state="conductor" />
+    <field y="3" x="7" state="conductor" />
+    <field y="3" x="8" state="conductor" />
   </fields>
 </scope>

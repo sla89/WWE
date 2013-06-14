@@ -199,6 +199,9 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	public IField getField(int x, int y) {
 		if ((x >= 0) && (x < this.getWidth()) && (y >= 0)
 				&& (y < this.getHeight())) {
+			if(fields == null){
+				this.fields=new IField[this.getHeight()][];
+			}
 			if (this.fields[y] == null) {
 				this.fields[y] = new IField[this.getWidth()];
 			}
