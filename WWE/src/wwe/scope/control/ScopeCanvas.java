@@ -94,7 +94,9 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 						} else if (event.getProperty().equals("showCoordinate")) { //$NON-NLS-1$
 							redraw();
 						} else if (event.getProperty().startsWith("block")) { //$NON-NLS-1$
-							getParent().pack();
+							// TODO Redraw Problem 
+							pack();
+							redrawComplete();
 						}
 					}
 				});
