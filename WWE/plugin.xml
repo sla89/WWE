@@ -150,6 +150,24 @@
                   style="push"
                   tooltip="%command.tooltip.4">
             </command>
+            <command
+                  commandId="WWE.ZoomInCmd"
+                  icon="icons/plus.gif"
+                  label="Zoom In"
+                  style="push">
+            </command>
+            <command
+                  commandId="WWE.ZoomOutCmd"
+                  icon="icons/minus.gif"
+                  label="Zoom Out"
+                  style="push">
+            </command>
+            <command
+                  commandId="WWE.RepaintCmd"
+                  icon="icons/pencil_edit.gif"
+                  label="Repaint"
+                  style="push">
+            </command>
          </toolbar>
       </menuContribution>
    </extension>
@@ -247,6 +265,21 @@
             id="WWE.ClearCmd"
             name="%command.name.7">
       </command>
+      <command
+            defaultHandler="wwe.handler.scope.ZoomInHandler"
+            id="WWE.ZoomInCmd"
+            name="Zoom In Command">
+      </command>
+      <command
+            defaultHandler="ZoomOutHandler"
+            id="WWE.ZoomOutCmd"
+            name="Zoom Out Command">
+      </command>
+      <command
+            defaultHandler="RepaintHandler"
+            id="WWE.RepaintCmd"
+            name="Repaint Command">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.editors">
@@ -284,10 +317,18 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="WWE.application"
-            name="%product.name">
+            name="WireWorld Eclipse">
          <property
                name="appName"
                value="WireWorld Eclipse">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="5,275,445,15">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
          </property>
       </product>
    </extension>
