@@ -7,6 +7,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetAdapter;
@@ -94,8 +95,9 @@ public class ScopeCanvas extends Canvas implements PaintListener,
 						} else if (event.getProperty().equals("showCoordinate")) { //$NON-NLS-1$
 							redraw();
 						} else if (event.getProperty().startsWith("block")) { //$NON-NLS-1$
-							// TODO Redraw Problem 
-							pack();
+							((ScrolledComposite) getParent())
+									.setMinSize(computeSize(SWT.DEFAULT,
+											SWT.DEFAULT));
 							redrawComplete();
 						}
 					}
