@@ -1,7 +1,7 @@
 package wwe.scope.control.dnd;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.dnd.DragSourceListener;
 
@@ -9,9 +9,9 @@ import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 
 public class ToolboxDragSourceListener implements DragSourceListener {
 
-	private TableViewer viewer;
+	private StructuredViewer viewer;
 
-	public ToolboxDragSourceListener(TableViewer viewer) {
+	public ToolboxDragSourceListener(StructuredViewer viewer) {
 		this.viewer = viewer;
 	}
 
@@ -23,10 +23,12 @@ public class ToolboxDragSourceListener implements DragSourceListener {
 	public void dragSetData(DragSourceEvent event) {
 		IStructuredSelection selection = (IStructuredSelection) viewer
 				.getSelection();
-		IToolElement firstElement = (IToolElement) selection.getFirstElement();
 
-		if (ObjectTransfer.elementTransfer.isSupportedType(event.dataType)) {
-			event.data = firstElement;
+		if (selection.getFirstElement() instanceof IToolElement) {
+			if (ObjectTransfer.elementTransfer.isSupportedType(event.dataType)) {
+				Object firstElement = selection.getFirstElement();
+				event.data = firstElement;
+			}
 		}
 	}
 

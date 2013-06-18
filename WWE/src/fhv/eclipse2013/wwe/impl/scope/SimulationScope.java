@@ -52,7 +52,8 @@ public class SimulationScope extends AbstractScope implements ISimulationScope {
 				if (fields[y] == null) {
 					fields[y] = new IField[width];
 				}
-				fields[y][x] = factory.createField(scope, state, new Point(x, y));
+				fields[y][x] = factory.createField(scope, state,
+						new Point(x, y));
 				field_list.add(fields[y][x]);
 			}
 			scope.setFields(fields, field_list);
@@ -150,6 +151,9 @@ public class SimulationScope extends AbstractScope implements ISimulationScope {
 
 	@Override
 	public void place(IToolElement element, Point coord) {
+		if (element == null)
+			return;
+		
 		if (!this.getLock()) {
 			for (int x = 0; x < element.getWidth(); x++) {
 				for (int y = 0; y < element.getHeight(); y++) {
