@@ -38,8 +38,12 @@ public class Speedometer extends WorkbenchWindowControlContribution {
 		Scale spinner = (Scale) e.getSource();
 		int value = spinner.getSelection();
 		try {
-		    EditorHandler.getCurrentEditor().getScope()
-			    .setTimerIntervall(value);
+		    EditorHandler
+			    .getCurrentEditor()
+			    .getScope()
+			    .setTimerIntervall(
+				    spinner.getMaximum() - value
+					    + spinner.getMinimum());
 		} catch (NotBoundException e1) {
 		    e1.printStackTrace();
 		}
