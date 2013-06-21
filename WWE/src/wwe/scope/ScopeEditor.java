@@ -13,6 +13,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
+import wwe.handler.scope.Speedometer;
 import wwe.scope.control.ScopeCanvas;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 
@@ -103,6 +104,10 @@ public class ScopeEditor extends EditorPart {
 
 	@Override
 	public void setFocus() {
+		int interval = getScope().getTimerIntervall();
+		int x = Speedometer.spinner.getMaximum() - interval
+		+ Speedometer.spinner.getMinimum();
+		Speedometer.spinner.setSelection(x);
 	}
 
 	public Control getCanvas() {

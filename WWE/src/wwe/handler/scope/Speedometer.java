@@ -14,48 +14,50 @@ import wwe.util.EditorHandler;
 
 public class Speedometer extends WorkbenchWindowControlContribution {
 
-    public Speedometer() {
-    }
+	public static Scale spinner;
 
-    public Speedometer(String id) {
-	super(id);
-    }
+	public Speedometer() {
+	}
 
-    @Override
-    protected Control createControl(Composite parent) {
-	Scale speedSlider = new Scale(parent, SWT.HORIZONTAL);
+	public Speedometer(String id) {
+		super(id);
+	}
 
-	speedSlider.setMinimum(10);
-	speedSlider.setMaximum(1000);
-	speedSlider.setIncrement(10);
-	speedSlider.setPageIncrement(10);
-	speedSlider.setSelection(100);
+	@Override
+	protected Control createControl(Composite parent) {
+		Scale speedSlider = new Scale(parent, SWT.HORIZONTAL);
 
-	speedSlider.addSelectionListener(new SelectionListener() {
+		speedSlider.setMinimum(10);
+		speedSlider.setMaximum(1000);
+		speedSlider.setIncrement(10);
+		speedSlider.setPageIncrement(10);
+		speedSlider.setSelection(100);
 
-	    @Override
-	    public void widgetSelected(SelectionEvent e) {
-		Scale spinner = (Scale) e.getSource();
-		int value = spinner.getSelection();
-		try {
-		    EditorHandler
-			    .getCurrentEditor()
-			    .getScope()
-			    .setTimerIntervall(
-				    spinner.getMaximum() - value
-					    + spinner.getMinimum());
-		} catch (NotBoundException e1) {
-		    e1.printStackTrace();
-		}
-	    }
+		speedSlider.addSelectionListener(new SelectionListener() {
 
-	    @Override
-	    public void widgetDefaultSelected(SelectionEvent e) {
-		widgetSelected(e);
-	    }
-	});
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				spinner = (Scale) e.getSource();
+				int value = spinner.getSelection();
+				try {
+					EditorHandler
+							.getCurrentEditor()
+							.getScope()
+							.setTimerIntervall(
+									spinner.getMaximum() - value
+											+ spinner.getMinimum());
+				} catch (NotBoundException e1) {
+					e1.printStackTrace();
+				}
+			}
 
-	return null;
-    }
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
+
+		return null;
+	}
 
 }
