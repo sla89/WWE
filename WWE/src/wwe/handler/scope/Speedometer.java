@@ -15,12 +15,10 @@ import wwe.util.EditorHandler;
 public class Speedometer extends WorkbenchWindowControlContribution {
 
     public Speedometer() {
-	// TODO Auto-generated constructor stub
     }
 
     public Speedometer(String id) {
 	super(id);
-	// TODO Auto-generated constructor stub
     }
 
     @Override
@@ -49,6 +47,7 @@ public class Speedometer extends WorkbenchWindowControlContribution {
 
 	    @Override
 	    public void widgetDefaultSelected(SelectionEvent e) {
+		widgetSelected(e);
 	    }
 	});
 
