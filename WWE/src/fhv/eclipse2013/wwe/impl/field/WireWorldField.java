@@ -6,18 +6,19 @@ import org.jdom2.Attribute;
 import org.jdom2.Element;
 
 import fhv.eclipse2013.wwe.contract.IField;
+import fhv.eclipse2013.wwe.contract.factory.IFieldFactory;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 
 public class WireWorldField extends FieldBase implements IField {
 
-	public WireWorldField(ISimulationScope scope, Point c) {
+	public WireWorldField(ISimulationScope scope, Point c, IFieldFactory factory) {
 		super(scope);
-		this.setNeighbours(new MooreNeighbours(scope, this, c));
+		this.setNeighbours(factory.createFieldNeighbour(scope, this, c));
 	}
 
-	public WireWorldField(ISimulationScope scope, FieldState state, Point c) {
-		this(scope, c);
+	public WireWorldField(ISimulationScope scope, FieldState state, Point c, IFieldFactory factory) {
+		this(scope, c, factory);
 		this.setState(state);
 	}
 
