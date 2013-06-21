@@ -15,6 +15,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import wwe.Activator;
 
 public class ToolboxInitializer extends AbstractPreferenceInitializer {
+	private static final String TOOLBAR_FOLDER = "toolbaritems";
 
 	public ToolboxInitializer() {
 	}
@@ -28,7 +29,7 @@ public class ToolboxInitializer extends AbstractPreferenceInitializer {
 		String seperator = System.getProperty("file.separator");
 
 		store.setDefault(
-				"PATH", System.getProperty("user.home") + seperator + "WWE" + seperator + "toolbar"); //$NON-NLS-1$ //$NON-NLS-2$
+				"PATH", System.getProperty("user.home") + seperator + "WWE" + seperator + TOOLBAR_FOLDER); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	private void loadToolBar() {
@@ -51,15 +52,13 @@ public class ToolboxInitializer extends AbstractPreferenceInitializer {
 					.getCodeSource().getLocation().getPath());
 
 			// we will loop through all the entries in the jar file
-			for (Enumeration<JarEntry> entries = jar.entries();; entries
-					.hasMoreElements()) {
-				if (!entries.hasMoreElements()) {
-					break;
-				}
+			Enumeration<JarEntry> entries = jar.entries();
+
+			while (entries.hasMoreElements()) {
 				JarEntry entry = entries.nextElement();
 
 				File file = new File(pathToFolder, entry.getName());
-				if (entry.getName().contains("toolbar")) {
+				if (entry.getName().contains(TOOLBAR_FOLDER)) {
 
 					if (entry.isDirectory())
 						file.mkdirs();
