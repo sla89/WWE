@@ -4,6 +4,7 @@ import java.rmi.NotBoundException;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
@@ -51,5 +52,28 @@ public class EditorHandler {
 		} else {
 			throw new NotBoundException(Messages.EditorHandler_0);
 		}
+	}
+
+	public static void killAll() {
+		try {
+
+			IEditorReference[] editors = Workbench.getInstance()
+					.getActiveWorkbenchWindow().getActivePage()
+					.getEditorReferences();
+
+			if (editors != null) {
+				for (int i = 0; i < editors.length; i++) {
+					IEditorPart editor = editors[i].getEditor(false);
+
+					if (editor != null && editor instanceof ScopeEditor) {
+						ScopeEditor scopeEditor = (ScopeEditor) editors[i];
+						scopeEditor.getScope().stop();
+					}
+				}
+			}
+		} catch (Exception e) {
+
+		}
+
 	}
 }
