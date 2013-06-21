@@ -155,6 +155,10 @@
                   style="push"
                   tooltip="%command.tooltip.3">
             </command>
+            <separator
+                  name="WWE.separator1"
+                  visible="true">
+            </separator>
             <command
                   commandId="WWE.ClearCmd"
                   icon="icons/trash_box.gif"
@@ -183,6 +187,13 @@
                   style="push"
                   tooltip="%command.tooltip.7">
             </command>
+            <separator
+                  name="WWE.separator2"
+                  visible="true">
+            </separator>
+            <control
+                  class="wwe.handler.scope.Speedometer">
+            </control>
          </toolbar>
       </menuContribution>
    </extension>

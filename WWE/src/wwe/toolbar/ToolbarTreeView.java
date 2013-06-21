@@ -14,53 +14,55 @@ import wwe.scope.control.dnd.ToolboxDragSourceListener;
 import fhv.eclipse2013.wwe.ToolboxFacade;
 
 public class ToolbarTreeView extends ViewPart {
-	public static final String ID = "WWE.toolbar.toolbarTreeView";
+    public static final String ID = "WWE.toolbar.toolbarTreeView";
 
-	public static void reload() {
-		String folderName = Activator.getDefault().getPreferenceStore()
-				.getString("PATH");
-		viewer.setInput(ToolboxFacade.load(folderName));
-	}
+    public static void reload() {
+	String folderName = Activator.getDefault().getPreferenceStore()
+		.getString("PATH");
 
-	private static TreeViewer viewer;
+	if (!folderName.isEmpty())
+	    viewer.setInput(ToolboxFacade.load(folderName));
+    }
 
-	public ToolbarTreeView() {
-		// TODO Auto-generated constructor stub
-	}
+    private static TreeViewer viewer;
 
-	@Override
-	public void createPartControl(Composite parent) {
-		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		viewer.setContentProvider(new ToolbarTreeContentProvider());
-		viewer.setLabelProvider(new ToolbarTreeLabelProvider());
+    public ToolbarTreeView() {
+	// TODO Auto-generated constructor stub
+    }
 
-		// Expand the tree
-		viewer.setAutoExpandLevel(2);
-		// Provide the input to the ContentProvider
-		String folderName = Activator.getDefault().getPreferenceStore()
-				.getString("PATH");
-		viewer.setInput(ToolboxFacade.load(folderName));
+    @Override
+    public void createPartControl(Composite parent) {
+	viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+	viewer.setContentProvider(new ToolbarTreeContentProvider());
+	viewer.setLabelProvider(new ToolbarTreeLabelProvider());
 
-		viewer.addDragSupport(DND.DROP_COPY | DND.DROP_MOVE,
-				new Transfer[] { ObjectTransfer.elementTransfer },
-				new ToolboxDragSourceListener(viewer));
+	// Expand the tree
+	viewer.setAutoExpandLevel(2);
+	// Provide the input to the ContentProvider
 
-		Activator.getDefault().getPreferenceStore()
-				.addPropertyChangeListener(new IPropertyChangeListener() {
-					@Override
-					public void propertyChange(
-							org.eclipse.jface.util.PropertyChangeEvent event) {
-						if (event.getProperty() == "PATH") {
-							reload();
-						}
-					}
-				});
-	}
+	// Load the ToolBox
+	reload();
 
-	@Override
-	public void setFocus() {
-		// TODO Auto-generated method stub
+	viewer.addDragSupport(DND.DROP_COPY | DND.DROP_MOVE,
+		new Transfer[] { ObjectTransfer.elementTransfer },
+		new ToolboxDragSourceListener(viewer));
 
-	}
+	Activator.getDefault().getPreferenceStore()
+		.addPropertyChangeListener(new IPropertyChangeListener() {
+		    @Override
+		    public void propertyChange(
+			    org.eclipse.jface.util.PropertyChangeEvent event) {
+			if (event.getProperty() == "PATH") {
+			    reload();
+			}
+		    }
+		});
+    }
+
+    @Override
+    public void setFocus() {
+	// TODO Auto-generated method stub
+
+    }
 
 }
