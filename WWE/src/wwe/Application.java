@@ -1,7 +1,5 @@
 package wwe;
 
-import java.io.File;
-
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
@@ -21,10 +19,8 @@ public class Application implements IApplication {
 	 */
 	@Override
 	public Object start(IApplicationContext context) {
-		// fetch toolbar from
-		loadToolBar();
-
 		Display display = PlatformUI.createDisplay();
+
 		try {
 			int returnCode = PlatformUI.createAndRunWorkbench(display,
 					new ApplicationWorkbenchAdvisor());
@@ -35,21 +31,6 @@ public class Application implements IApplication {
 		} finally {
 			display.dispose();
 		}
-	}
-
-	private boolean loadToolBar() {
-		String pathToFolder = Activator.getDefault().getPreferenceStore()
-				.getString("PATH");
-		File folder = new File(pathToFolder);
-
-		// create folder on start up
-		if (!folder.exists()) {
-			if (!folder.mkdir()) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	/*

@@ -16,7 +16,7 @@ import org.jdom2.output.XMLOutputter;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 
-public class ToolElement implements IToolElement {
+public class ToolElement extends AbstractTool implements IToolElement {
 
 	private static IToolElement load(Document document, String absolutePath) {
 		ToolElement element;
@@ -68,15 +68,28 @@ public class ToolElement implements IToolElement {
 		return null;
 	}
 
+	public static IToolElement loadFile(String absoluteFileName) {
+		try {
+			SAXBuilder builder = new SAXBuilder();
+			File xmlFile = new File(absoluteFileName);
+			Document document = builder.build(xmlFile);
+			return load(document, xmlFile.getAbsolutePath());
+		} catch (IOException io) {
+			System.out.println(io.getMessage());
+		} catch (JDOMException jdomex) {
+			System.out.println(jdomex.getMessage());
+		}
+		return null;
+	}
+
 	private Dimension size;
-	private String name;
 	private FieldState[][] fields;
 	private String filename;
 	private String image;
 
 	public ToolElement(String name, String filename, int width, int height,
 			String image) {
-		this.name = name;
+		super(name);
 		this.filename = filename;
 
 		if (!image.equals("")) {
@@ -102,11 +115,6 @@ public class ToolElement implements IToolElement {
 
 	public String getFilename() {
 		return filename;
-	}
-
-	@Override
-	public String getName() {
-		return name;
 	}
 
 	@Override

@@ -19,16 +19,17 @@ import org.eclipse.ui.part.ViewPart;
 import wwe.scope.control.dnd.ObjectTransfer;
 import wwe.scope.control.dnd.ToolboxDragSourceListener;
 import fhv.eclipse2013.wwe.impl.toolbox.ToolElement;
+import fhv.eclipse2013.wwe.impl.toolbox.Toolbox;
 
 public class ToolbarView extends ViewPart {
     public static final String ID = "WWE.toolbarView";
 
-    // TODO perhaps contextmenu (right-click) delete toolboxitem
+	// TODO perhaps contextmenu (right-click) delete toolboxitem
 
-    public static void reload() {
-	// viewer.setInput(Toolbox.load(Activator.getDefault()
-	// .getPreferenceStore().getString("PATH")));
-    }
+	public static void reload() {
+		viewer.setInput(Toolbox.load(Activator.getDefault()
+				.getPreferenceStore().getString("PATH")));
+	}
 
     private static TableViewer viewer;
 

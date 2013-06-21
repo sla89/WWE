@@ -4,9 +4,7 @@ import java.awt.Dimension;
 
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 
-public interface IToolElement {
-	String getName();
-
+public interface IToolElement extends ITool {
 	Dimension getSize();
 
 	String getImage();

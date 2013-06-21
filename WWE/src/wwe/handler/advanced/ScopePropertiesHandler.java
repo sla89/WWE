@@ -12,7 +12,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.internal.EditorReference;
 import org.eclipse.ui.part.WorkbenchPart;
 
 import wwe.dialog.CreateScopeDialog;

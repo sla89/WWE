@@ -47,10 +47,10 @@ public class ScopeEditor extends EditorPart {
 				| SWT.H_SCROLL | SWT.BORDER);
 		scroll.setLayout(new GridLayout(1, true));
 
-		Composite scrollContent = new Composite(scroll, SWT.NONE);
-		scrollContent.setLayout(new GridLayout(scope.getWidth(), false));
+		// Composite scrollContent = new Composite(scroll, SWT.NONE);
+		// scrollContent.setLayout(new GridLayout(scope.getWidth(), false));
 
-		canvas = new ScopeCanvas(scrollContent, 1, scope);
+		canvas = new ScopeCanvas(scroll, SWT.NONE, scope);
 
 		scroll.getVerticalBar().addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -76,8 +76,8 @@ public class ScopeEditor extends EditorPart {
 		// }
 		//
 
-		scroll.setMinSize(scrollContent.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-		scroll.setContent(scrollContent);
+		scroll.setMinSize(canvas.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scroll.setContent(canvas);
 		scroll.setExpandVertical(true);
 		scroll.setExpandHorizontal(true);
 		scroll.setAlwaysShowScrollBars(true);
