@@ -18,7 +18,7 @@ public class FieldAddedSupport {
 
 	public void fireFieldDeletedChanged(int x, int y, IField field) {
 		for (IFieldAddedEventListener event : this.fieldAddedListener) {
-			event.handleFieldAdded(x, y, field);
+			event.handleFieldDeleted(x, y, field);
 		}
 	}
 	

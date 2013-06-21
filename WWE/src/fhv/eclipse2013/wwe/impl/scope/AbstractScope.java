@@ -175,7 +175,7 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	}
 
 	protected void init() {
-		this.fields = new IField[this.getHeight()][];
+		this.fields = new IField[this.getHeight()][this.getWidth()];
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 			if (this.fields[y][x] == null) {
 				this.fields[y][x] = factory.createField(this, new Point(x, y));
 				this.fields[y][x].setLock(this.getLock());
-				this.onFieldAdded(y, x, this.fields[y][x]);
+				this.onFieldAdded(x, y, this.fields[y][x]);
 			}
 			return this.fields[y][x];
 		} else {
