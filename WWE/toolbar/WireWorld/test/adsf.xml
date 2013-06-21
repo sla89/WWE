@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scope name="adsf">
+  <width>12</width>
+  <height>8</height>
+  <image>adsf.png</image>
+  <fields>
+    <field y="0" x="0" state="conductor" />
+    <field y="4" x="1" state="conductor" />
+  </fields>
+</scope>
