@@ -9,7 +9,7 @@ import java.util.TimerTask;
 import org.eclipse.swt.graphics.Rectangle;
 
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.contract.ISimulationFactory;
+import fhv.eclipse2013.wwe.contract.factory.IFieldFactory;
 import fhv.eclipse2013.wwe.contract.scope.IStepChangedEventListener.Type;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.state.SimulationState;
@@ -23,7 +23,7 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	}
 
 	private ScopeTimer timer = new ScopeTimer(100);
-	private ISimulationFactory factory;
+	private IFieldFactory factory;
 
 	private Dimension size;
 	private String name;
@@ -165,7 +165,7 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	}
 
 	public AbstractScope(int w, int h, String name, boolean init,
-			ISimulationFactory factory) {
+			IFieldFactory factory) {
 		this.size = new Dimension(w, h);
 		this.name = name;
 		this.factory = factory;
