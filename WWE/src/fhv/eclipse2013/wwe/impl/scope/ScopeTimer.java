@@ -15,7 +15,7 @@ public class ScopeTimer {
 	public boolean startTimer(TimerTask t) {
 		if (this.t == null) {
 			this.t = new Timer();
-			this.t.schedule(t, 0, this.intervall);
+			this.t.schedule(t, this.intervall, this.intervall);
 		} else {
 			this.stopTimer();
 			return true;
@@ -36,5 +36,9 @@ public class ScopeTimer {
 			startTimer(t);
 			startTimer(t);
 		}
+	}
+
+	public int getIntervall() {
+		return this.intervall;
 	}
 }
