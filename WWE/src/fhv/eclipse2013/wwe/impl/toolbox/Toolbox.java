@@ -27,27 +27,31 @@ public class Toolbox implements IToolCategory {
 		categories = new ArrayList<>();
 		File folder = new File(folderName);
 		Toolbox toolbox = new Toolbox("", folder.getAbsolutePath());
-		IObservableList elements = loadFolder(folderName, toolbox);
-		toolbox.elements = elements;
+		if (folder.exists()) {
+			IObservableList elements = loadFolder(folderName, toolbox);
+			toolbox.elements = elements;
+		}
 
 		instance = toolbox;
-
 		return toolbox;
 	}
 
 	private static IObservableList loadFolder(String folderName, ITool parent) {
 		IObservableList elements = new WritableList();
 		File folder = new File(folderName);
-		for (String fileName : folder.list()) {
-			File file = new File(folder.getAbsoluteFile() + "\\" + fileName);
-			if (file.isDirectory()) {
-				ToolCategory category = new ToolCategory(parent, file.getName());
-				categories.add(category.getPath());
-				category.setElements(loadFolder(file.getAbsolutePath(),
-						category));
-				elements.add(category);
-			} else if (getExtension(fileName).equals(".xml")) {
-				elements.add(ToolElement.loadFile(file.getAbsolutePath()));
+		if (folder.exists()) {
+			for (String fileName : folder.list()) {
+				File file = new File(folder.getAbsoluteFile() + "\\" + fileName);
+				if (file.isDirectory()) {
+					ToolCategory category = new ToolCategory(parent,
+							file.getName());
+					categories.add(category.getPath());
+					category.setElements(loadFolder(file.getAbsolutePath(),
+							category));
+					elements.add(category);
+				} else if (getExtension(fileName).equals(".xml")) {
+					elements.add(ToolElement.loadFile(file.getAbsolutePath()));
+				}
 			}
 		}
 		return elements;
