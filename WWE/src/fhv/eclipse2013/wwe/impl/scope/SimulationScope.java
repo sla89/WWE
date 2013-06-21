@@ -17,7 +17,8 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.contract.ISimulationFactory;
+import fhv.eclipse2013.wwe.contract.factory.IFieldFactory;
+import fhv.eclipse2013.wwe.contract.factory.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
@@ -25,7 +26,7 @@ import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
 public class SimulationScope extends AbstractScope implements ISimulationScope {
 
 	public static SimulationScope load(String filename,
-			ISimulationFactory factory) {
+			IFieldFactory factory) {
 
 		SAXBuilder builder = new SAXBuilder();
 		File xmlFile = new File(filename);
@@ -68,12 +69,12 @@ public class SimulationScope extends AbstractScope implements ISimulationScope {
 		return new SimulationScope(1, 1, "NEW", factory);
 	}
 
-	public SimulationScope(int w, int h, String name, ISimulationFactory factory) {
+	public SimulationScope(int w, int h, String name, IFieldFactory factory) {
 		super(w, h, name, true, factory);
 	}
 
 	private SimulationScope(int w, int h, String name,
-			ISimulationFactory factory, boolean init) {
+			IFieldFactory factory, boolean init) {
 		super(w, h, name, init, factory);
 	}
 
