@@ -28,6 +28,18 @@
             name="%view.name"
             restorable="true">
       </view>
+      <view
+            class="wwe.toolbar.ToolbarTreeView"
+            id="WWE.toolbar.toolbarTreeView"
+            name="Toolbar"
+            restorable="true">
+      </view>
+      <view
+            class="wwe.ToolbarView"
+            id="WWE.toolbarView"
+            name="Toolbar Normal"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -153,20 +165,23 @@
             <command
                   commandId="WWE.ZoomInCmd"
                   icon="icons/plus.gif"
-                  label="Zoom In"
-                  style="push">
+                  label="%command.label.13"
+                  style="push"
+                  tooltip="%command.tooltip.5">
             </command>
             <command
                   commandId="WWE.ZoomOutCmd"
                   icon="icons/minus.gif"
-                  label="Zoom Out"
-                  style="push">
+                  label="%command.label.14"
+                  style="push"
+                  tooltip="%command.tooltip.6">
             </command>
             <command
                   commandId="WWE.RepaintCmd"
                   icon="icons/pencil_edit.gif"
-                  label="Repaint"
-                  style="push">
+                  label="%command.label.15"
+                  style="push"
+                  tooltip="%command.tooltip.7">
             </command>
          </toolbar>
       </menuContribution>
@@ -302,6 +317,11 @@
             id="WWE.preferences.scope"
             name="%page.name.0">
       </page>
+      <page
+            class="wwe.preferences.WireWorldPreferencePage"
+            id="WWE.preferences.scope.wireworld"
+            name="WireWorld">
+      </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
@@ -310,6 +330,9 @@
       </initializer>
       <initializer
             class="wwe.preferences.ScopeInitializer">
+      </initializer>
+      <initializer
+            class="wwe.preferences.WireWorldInitializer">
       </initializer>
    </extension>
    <extension
