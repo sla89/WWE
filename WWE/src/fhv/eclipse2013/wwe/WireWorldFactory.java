@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fhv.eclipse2013.wwe.contract.IField;
-import fhv.eclipse2013.wwe.contract.ISimulationFactory;
+import fhv.eclipse2013.wwe.contract.factory.IFieldFactory;
+import fhv.eclipse2013.wwe.contract.factory.ISimulationFactory;
 import fhv.eclipse2013.wwe.contract.scope.ISimulationScope;
 import fhv.eclipse2013.wwe.contract.state.FieldState;
 import fhv.eclipse2013.wwe.contract.toolbox.IToolElement;
@@ -17,31 +18,36 @@ import fhv.eclipse2013.wwe.impl.toolbox.ToolElement;
 
 public class WireWorldFactory implements ISimulationFactory {
 
+	private class WireWorldFieldFactory implements IFieldFactory {
+
+		@Override
+		public IField createField(ISimulationScope scope, Point coord) {
+			return new WireWorldField(scope, coord);
+		}
+
+		@Override
+		public IField createField(ISimulationScope scope, FieldState state,
+				Point coord) {
+			return new WireWorldField(scope, state, coord);
+		}
+
+	}
+
 	public WireWorldFactory() {
 
 	}
 
 	@Override
 	public ISimulationScope createScope(int width, int height, String name) {
-		return new SimulationScope(width, height, name, this);
+		return new SimulationScope(width, height, name, new WireWorldFieldFactory());
 	}
 
 	@Override
 	public ISimulationScope loadScope(String filename) {
-		return SimulationScope.load(filename, this);
+		return SimulationScope.load(filename, new WireWorldFieldFactory());
 	}
 
-	@Override
-	public IField createField(ISimulationScope scope, Point coord) {
-		return new WireWorldField(scope, coord);
-	}
-
-	@Override
-	public IField createField(ISimulationScope scope, FieldState state, Point coord) {
-		return new WireWorldField(scope, state, coord);
-	}
-
-	@Override
+	@Deprecated
 	public IToolElement[] readToolboxFolder(String foldername) {
 		List<IToolElement> elements = new ArrayList<>();
 		File folder = new File(foldername);
