@@ -143,14 +143,14 @@
             </command>
             <command
                   commandId="WWE.StepBackCmd"
-                  icon="icons/backward.gif"
+                  icon="icons/previous.gif"
                   label="%command.label.10"
                   style="push"
                   tooltip="%command.tooltip.2">
             </command>
             <command
                   commandId="WWE.NextStepCmd"
-                  icon="icons/forward.gif"
+                  icon="icons/next.gif"
                   label="%command.label.11"
                   style="push"
                   tooltip="%command.tooltip.3">
