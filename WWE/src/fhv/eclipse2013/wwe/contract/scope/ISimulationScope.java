@@ -75,4 +75,6 @@ public interface ISimulationScope {
 
 	void setTimerIntervall(int intervall);
 
+	int getTimerIntervall();
+
 }

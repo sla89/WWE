@@ -37,4 +37,8 @@ public class ScopeTimer {
 			startTimer(t);
 		}
 	}
+
+	public int getIntervall() {
+		return this.intervall;
+	}
 }

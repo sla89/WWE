@@ -39,6 +39,11 @@ public abstract class AbstractScope extends AbstractScopeEvents {
 	}
 
 	@Override
+	public int getTimerIntervall() {
+		return this.timer.getIntervall();
+	}
+
+	@Override
 	public void setSize(int width, int height) throws Exception {
 		setSize(width, height, true);
 	}
