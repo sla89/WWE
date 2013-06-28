@@ -54,12 +54,14 @@ public class ScopeEditor extends EditorPart {
 		canvas = new ScopeCanvas(scroll, SWT.NONE, scope);
 
 		scroll.getVerticalBar().addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				canvas.redrawComplete();
 			}
 		});
 
 		scroll.getHorizontalBar().addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				canvas.redrawComplete();
 			}
@@ -105,9 +107,14 @@ public class ScopeEditor extends EditorPart {
 	@Override
 	public void setFocus() {
 		int interval = getScope().getTimerIntervall();
-		int x = Speedometer.spinner.getMaximum() - interval
-		+ Speedometer.spinner.getMinimum();
-		Speedometer.spinner.setSelection(x);
+
+		try {
+			int x = Speedometer.spinner.getMaximum() - interval
+					+ Speedometer.spinner.getMinimum();
+			Speedometer.spinner.setSelection(x);
+		} catch (Exception e) {
+
+		}
 	}
 
 	public Control getCanvas() {
